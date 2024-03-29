@@ -19,3 +19,9 @@ class PassRepositories
 
         require_once __DIR__ . '/../../config.php';
     }
+
+    public function getNuitee()
+    {
+        $req = $this->DB->query('SELECT * FROM nuitee');
+        $data = $req->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
