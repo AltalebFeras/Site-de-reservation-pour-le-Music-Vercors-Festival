@@ -21,7 +21,9 @@ switch ($route) {
     } 
     if ($methode === 'POST') {
       // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
-      $UtilisateurController->x();
+      $UtilisateurController->traitmentUtilisateur();
+      $HomeController->indexConnexion();
+
     } 
     else {
       $HomeController->index();
@@ -41,14 +43,16 @@ switch ($route) {
       }
     }
     break;
+
+
   case HOME_URL . 'connexion':
     if (isset($_SESSION['connecté'])) {
       header('location: /dashboard');
       die;
     } else {
       if ($methode === 'POST') {
-        // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
-        $HomeController->authAdmin($_POST['password']);
+      $UtilisateurController->connexionUtilisateur();
+      
       } else {
         $HomeController->indexConnexion();
       }

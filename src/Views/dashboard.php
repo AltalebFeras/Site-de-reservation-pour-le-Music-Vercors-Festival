@@ -5,6 +5,9 @@ include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
 ?>
 <div class="content">
+
+<P>
+BONJOUR DASHBOARD</P>
   <?php
   // switch ($section) {
   //   case '':
