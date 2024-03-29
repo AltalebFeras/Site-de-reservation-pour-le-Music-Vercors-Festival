@@ -1,6 +1,5 @@
 <?php
 
-// On charge les classes et les repositories à la demande :
 function ChargerClasses($classe)
 {
   try {
