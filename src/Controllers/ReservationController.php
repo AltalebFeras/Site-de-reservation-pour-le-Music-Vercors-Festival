@@ -4,60 +4,43 @@ namespace src\Controllers;
 
 session_start();
 use src\Services\Reponse;
+use src\Models\Reservation;
 
 
 class ReservationController
 {
     use Reponse;
 
-
-    public function index(): void
+    public function traitementReservation()
     {
-        $this->render("Reservation");
-    }
-
-    public function indexAdmin(): void
-    {
-        $this->render("admin");
-    }
-
-    public function indexConnexion(): void
-    {
-        $this->render("connexion");
-    }
-
-    public function authAdmin(string $motDePasseAdmin): void
-    {
-        if ($motDePasseAdmin === 'admin') {
-            $_SESSION['connecté'] = TRUE;
-            header('location: ' . HOME_URL . 'dashboard');
-            die();
-        } else {
-            header('location: ' . HOME_URL . '?erreur=connexion');
+        if (
+            empty($_POST) ||
+            !isset($_POST['reservation']) ||
+            !isset($_POST['nombreReservation']) ||
+            !isset($_POST['prixTotal']) ||
+            !isset($_POST['utilisateur'])
+        ) {
+            echo "form submitted";
         }
+        $reservation = htmlspecialchars($_POST['reservation']);
+        $nombreReservation = htmlspecialchars($_POST['nombreReservation']);
+        $prixTotal = htmlspecialchars($_POST['prixTotal']);
+        $utilisateur = htmlspecialchars($_POST['utilisateur']);
+
+        $reservation = new Reservation();
+        $reservation->setReservationId($reservation);
+        $reservation->setNombreReservations($nombreReservation);
+        $reservation->setPrixTotal($prixTotal);
+        $reservation->setUtilisateurId($utilisateur);
+
+        $reservation->save();
+
+        $data = [
+            'success' => true,
+            'message' => 'Reservation created successfully',
+            'reservation' => $reservation
+        ];
     }
-
-
-    public function authUser(string $motDePasseUser): void
-    {
-        if ($motDePasseUser === 'admin') {
-            $_SESSION['connecté'] = TRUE;
-            header('location: ' . HOME_URL . 'dashboard');
-            die();
-        } else {
-            header('location: ' . HOME_URL . '?erreur=connexion');
-        }
-    }
-
-
-    public function deconnexion(): void
-    {
-        session_destroy();
-        header('location: ' . HOME_URL);
-        die();
-    }
-
-
 
 
 
