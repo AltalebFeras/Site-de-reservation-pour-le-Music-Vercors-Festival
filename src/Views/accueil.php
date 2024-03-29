@@ -2,7 +2,7 @@
 include_once __DIR__ . '/Includes/header.php';
 ?>
 
-<form action="" id="inscription" method="POST">
+<form action="#" id="inscription" method="post">
   <fieldset id="reservation">
     <legend>Réservation</legend>
     <h3>Nombre de réservation(s) :</h3>
@@ -164,8 +164,8 @@ include_once __DIR__ . '/Includes/header.php';
 
     <label for="telephone">Téléphone :</label>
     <input type="text" name="telephone" id="telephone" required autocomplete="tel">
-    <label for="adressePostale">Adresse Postale :</label>
-    <input type="text" name="adressePostale" id="adressePostale" required autocomplete="address-line1">
+    <label for="adresse">Adresse Postale :</label>
+    <input type="text" name="adresse" id="adresse" required autocomplete="address-line1">
     <div class="d-flex flex-row align-items-baseline my-2">
       <input type="checkbox" class="me-2" name="RGPD" id="RGPD" enababled>
       <label for="RGPD">Veuillez accepter les RGPD </label>
