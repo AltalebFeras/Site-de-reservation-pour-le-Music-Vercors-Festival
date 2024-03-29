@@ -103,12 +103,12 @@ class UtilisateurController
             $db = new Database();
             $conn = $db->getDB();
 
-            $request = "SELECT * FROM utilisateur WHERE email = ?";
+            $request = "SELECT * FROM utilisateur WHERE email = :email" ;
             $stmt = $conn->prepare($request);
 
-            $stmt->bindValue(1, $email);
+            $stmt->execute([":email"=>$email]);
 
-            $stmt->execute();
+         
 
             $row = $stmt->fetch(\PDO::FETCH_ASSOC);
 
@@ -133,7 +133,7 @@ class UtilisateurController
                 $_SESSION['error_message1'] = "User not found. Please try again.";
 
                 header('location: ' . HOME_URL . 'connexion');
-
+                
                 exit;
             }
         } else {
