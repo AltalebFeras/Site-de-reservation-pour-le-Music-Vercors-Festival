@@ -11,6 +11,16 @@ use src\Models\Utilisateur;
 class UtilisateurController
 {
     use Reponse;
+    private $DB;
+
+    public function __construct()
+    {
+        $database = new Database;
+        $this->DB = $database->getDB();
+
+        require_once __DIR__ . '/../../config.php';
+    }
+
 
     public function traitmentUtilisateur()
     {
@@ -82,7 +92,9 @@ class UtilisateurController
         $utilisateurRepositories->createUtilisateur($newUtilisateur);
 
         // Set success message and redirect to sign-in page
-        $_SESSION['success_message'] = "Your inscription has been validated!";
+        $_SESSION['success_message'] = "Votre inscription est validée!";
+        $_SESSION['utilisateur'] = $this->DB->lastInsertId();
+
 
         $this->render("connexion", ["erreur" => ""]);
         exit;
@@ -98,49 +110,61 @@ class UtilisateurController
             !empty($_POST['motDePasse'])
         ) {
             $email = $_POST['email'];
-            $password = $_POST['motDePasse'];
+            $motDePasse = $_POST['motDePasse'];
 
             $db = new Database();
             $conn = $db->getDB();
 
-            $request = "SELECT * FROM utilisateur WHERE email = :email" ;
+
+            $request = "SELECT * FROM utilisateur WHERE email = :email";
             $stmt = $conn->prepare($request);
+            $stmt->bindParam(":email", $email);
+            $stmt->execute();
 
-            $stmt->execute([":email"=>$email]);
+            $row = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-         
-
-            $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+            // echo "hi";
+            // var_dump($_SESSION['utilisateur']);
+            // var_dump(  $row['utilisateurID']);
+            // echo "hi";
+            // die;
 
             // Check if user exists
-            if ($row) {
-                // Verify password
-                if (password_verify($password, $row['motDePasse'])) {
-                    // Password is correct, start session and redirect to treatment script
-                    $_SESSION['utilisateur'] = $row['utilisateurID'];
-                    $_SESSION['connecté'] = true;
-                    header('location: ' . HOME_URL . 'dashboard');
+           // Check if user exists
+if ($row) {
+    // Fetch the first row
+    $utilisateurData = $row[0];
 
-
-                    exit;
-                } else {
-                    $_SESSION['error_message1'] = "Invalid email or password. Please try again.";
-                    header('location: ' . HOME_URL . 'connexion');
-
-                    exit;
-                }
-            } else {
-                $_SESSION['error_message1'] = "User not found. Please try again.";
-
-                header('location: ' . HOME_URL . 'connexion');
-                
-                exit;
-            }
-        } else {
-            $_SESSION['error_message1'] = "Please fill in all fields.";
-            header('location: ' . HOME_URL . 'connexion');
-
-            exit;
+    // Verify password
+    if (password_verify($motDePasse, $utilisateurData['motDePasse'])) {
+        // Password is correct, start session and redirect to treatment script
+        $_SESSION['utilisateur'] = $utilisateurData['utilisateurID'];
+        $_SESSION['connecté'] = true;
+        header('location: ' . HOME_URL . 'dashboard');
+        exit;
+    } else {
+        $_SESSION['error_message1'] = "Invalid email or password. Please try again.";
+        header('location: ' . HOME_URL . 'connexion');
+        exit;
+    }
+} else {
+    $_SESSION['error_message1'] = "User not found. Please try again.";
+    header('location: ' . HOME_URL . 'connexion');
+    exit;
+}
         }
     }
+
+
+    public function showDashboard(){
+        if (isset($_SESSION["connecté"])) {
+            echo "hifromshow";
+            $this->render("dashboard", ["erreur" => ""]);
+
+
+        }
+
+
+    }
+    
 }

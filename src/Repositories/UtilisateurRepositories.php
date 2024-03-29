@@ -45,8 +45,8 @@ class UtilisateurRepositories
       ':role'=> $Utilisateur->getRole()
     ]);
 
-    $id = $this->DB->lastInsertId();
-    $Utilisateur->setUtilisateurID($id);
+    $utilisateurID = $this->DB->lastInsertId();
+    $Utilisateur->setUtilisateurID($utilisateurID);
 
     return $Utilisateur;
   }
