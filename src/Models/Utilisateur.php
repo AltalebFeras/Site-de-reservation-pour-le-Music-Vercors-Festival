@@ -6,15 +6,15 @@ use DateTime;
 use src\Services\Hydratation;
 
 class Utilisateur {
-    private $Id, $nom, $prenom, $email, $motDePasse, $telephone, $adresse,  $RGPD, $role;
+    private $utilisateurID, $nom, $prenom, $email, $motDePasse, $telephone, $adresse,  $RGPD, $role;
 
     use Hydratation;
 
-    public function getId(): int {
-        return $this->Id;
+    public function getUtilisateurID(): int {
+        return $this->utilisateurID;
     }
-    public function setId(int $Id) {
-        $this->Id = $Id;
+    public function setUtilisateurID(int $utilisateurID) {
+        $this->utilisateurID = $utilisateurID;
     }
 
     public function getPrenom(): string {
