@@ -4,7 +4,7 @@ namespace src\Models;
 
 use src\Services\Hydratation;
 
-class Option {
+class Options {
     private $optionID, $nomOption, $stockOption, $prixOption;
 
     use Hydratation;
