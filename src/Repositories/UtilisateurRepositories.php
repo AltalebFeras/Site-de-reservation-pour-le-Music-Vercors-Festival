@@ -31,7 +31,7 @@ class UtilisateurRepositories
 
   public function createUtilisateur(Utilisateur $Utilisateur): Utilisateur
   {
-    $sql = "INSERT INTO " . PREFIXE . "Utilisateur (nom, prenom, email, motDePasse, telephone, adresse, RGPD, role ) VALUES (:nom, :prenom,:email,:motdepasse, :telephone, :adresse, :rgpd, :role,  );";
+    $sql = "INSERT INTO utilisateur (nom, prenom, email, motDePasse, telephone, adresse, RGPD, role ) VALUES (:nom, :prenom,:email,:motDePasse, :telephone, :adresse, :RGPD, :role);";
     $statement = $this->DB->prepare($sql);
 
     $statement->execute([
@@ -41,7 +41,7 @@ class UtilisateurRepositories
       ':motDePasse'=> $Utilisateur->getMotDePasse(),
       ':telephone'=> $Utilisateur->getTelephone(),
       ':adresse'=> $Utilisateur->getAdresse(),
-      ':RGPD'=> $Utilisateur->getRgpd(),
+      ':RGPD'=> $Utilisateur->getRgpd()->format("Y-m-d"),
       ':role'=> $Utilisateur->getRole()
     ]);
 
