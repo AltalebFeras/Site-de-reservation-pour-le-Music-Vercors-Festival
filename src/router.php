@@ -1,10 +1,11 @@
 <?php
-// include __DIR__ ."/../src/Services/Fonction.php";
-// use src\Controllers\FilmController;
+
 use src\Controllers\HomeController;
+use src\Controllers\UtilisateurController;
 use src\Services\Routing;
 
 $HomeController = new HomeController;
+$UtilisateurController = new UtilisateurController;
 // $FilmController = new FilmController;
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -17,7 +18,12 @@ switch ($route) {
     if (isset($_SESSION['connecté'])) {
       header('location: ' . HOME_URL . 'dashboard');
       die;
-    } else {
+    } 
+    if ($methode === 'POST') {
+      // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
+      $UtilisateurController->x();
+    } 
+    else {
       $HomeController->index();
     }
     break;
