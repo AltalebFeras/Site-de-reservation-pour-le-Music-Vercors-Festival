@@ -22,7 +22,6 @@ switch ($route) {
     if ($methode === 'POST') {
       // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
       $UtilisateurController->traitmentUtilisateur();
-      $HomeController->indexConnexion();
     } else {
       $HomeController->index();
     }
@@ -35,7 +34,7 @@ switch ($route) {
       die;
     } else {
       if ($methode === 'POST') {
-        $HomeController->authAdmin($_POST['password']);
+        $HomeController->authAdmin($_POST['motDePasseAdmin']);
       } else {
         $HomeController->indexAdmin();
       }
@@ -50,7 +49,6 @@ switch ($route) {
     } else {
       if ($methode === 'POST') {
         $UtilisateurController->connexionUtilisateur();
-        // header('location: /dashboard');
       } else {
         $HomeController->indexConnexion();
       }

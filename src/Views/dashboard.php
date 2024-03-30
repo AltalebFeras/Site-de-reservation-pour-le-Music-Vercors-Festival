@@ -4,13 +4,12 @@ include_once __DIR__ . '/Includes/header.php';
 
 include_once __DIR__ . '/Includes/colonne.php';
 
+    var_dump($_SESSION['role']);
+
 ?>
 <div class="content">
 
-<P>
-BONJOUR DASHBOARD</P>
-
-  <?php
+<?php
   // switch ($section) {
   //   case '':
   //     switch ($action) {
