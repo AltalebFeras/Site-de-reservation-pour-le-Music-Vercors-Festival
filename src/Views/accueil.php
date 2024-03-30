@@ -1,5 +1,10 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
+
+if (isset($_SESSION['error_message0'])) {
+  echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_message0'] . '</div>';
+  unset($_SESSION['error_message0']);
+}
 ?>
 <form action="" id="inscription" method="post">
   <fieldset id="reservation">
@@ -155,9 +160,9 @@ include_once __DIR__ . '/Includes/header.php';
     <input type="email" name="email" id="email" required autocomplete="email">
 
     <label for="motDePasse">Mot de passe :</label>
-    <input type="password" name="motDePasse" id="motDePasse" required>
+    <input type="password" name="motDePasse" id="motDePasse" min="8" required>
     <label for="motDePasseVerifier">Verifier le mot de passe :</label>
-    <input type="password" name="motDePasseVerifier" id="motDePasseVerifier">
+    <input type="password" name="motDePasseVerifier" min="8" id="motDePasseVerifier">
     <span class="password-toggle fw-bold mb-3" id="togglePassword">Voir le MDP</span>
 
 
