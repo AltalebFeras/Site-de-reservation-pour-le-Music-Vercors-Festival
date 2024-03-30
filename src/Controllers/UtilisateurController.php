@@ -50,14 +50,20 @@ class UtilisateurController
 
         // Validate email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['error_message'] = "Invalid email format. Please enter a valid email.";
+            $_SESSION['error_message0'] = "Invalid email format. Please enter a valid email.";
+            header('Location: ./../index.php');
+            exit;
+        }
+
+        if (strlen($motDePasse) < 3) {
+            $_SESSION['error_message0'] = "Password must be at least 3 characters long.";
             header('Location: ./../index.php');
             exit;
         }
 
         // Verify motDePasse confirmation
         if ($motDePasse !== $motDePasseVerifier) {
-            $_SESSION['error_message'] = "motDePasses do not match. Please try again.";
+            $_SESSION['error_message0'] = "motDePasses do not match. Please try again.";
             header('Location: ./../index.php');
             exit;
         }
@@ -66,7 +72,7 @@ class UtilisateurController
         $utilisateurRepositories = new UtilisateurRepositories();
         $existingUtilisateur = $utilisateurRepositories->findByEmail($email);
         if ($existingUtilisateur) {
-            $_SESSION['error_message'] = "Email already exists.";
+            $_SESSION['error_message0'] = "Email already exists.";
             header('Location: ./index.php');
             exit;
         }
@@ -116,7 +122,7 @@ class UtilisateurController
             $conn = $db->getDB();
 
 
-            $request = "SELECT * FROM utilisateur WHERE email = :email";
+            $request = "SELECT * FROM mvf_utilisateur WHERE email = :email";
             $stmt = $conn->prepare($request);
             $stmt->bindParam(":email", $email);
             $stmt->execute();

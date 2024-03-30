@@ -31,7 +31,7 @@ class UtilisateurRepositories
 
   public function createUtilisateur(Utilisateur $Utilisateur): Utilisateur
   {
-    $sql = "INSERT INTO utilisateur (nom, prenom, email, motDePasse, telephone, adresse, RGPD, role ) VALUES (:nom, :prenom,:email,:motDePasse, :telephone, :adresse, :RGPD, :role);";
+    $sql = "INSERT INTO " . PREFIXE . "utilisateur (nom, prenom, email, motDePasse, telephone, adresse, RGPD, role ) VALUES (:nom, :prenom,:email,:motDePasse, :telephone, :adresse, :RGPD, :role);";
     $statement = $this->DB->prepare($sql);
 
     $statement->execute([
@@ -50,12 +50,13 @@ class UtilisateurRepositories
 
     return $Utilisateur;
   }
+  
 
 
   public function findByEmail($email)
   {
      
-          $request = 'SELECT * FROM utilisateur WHERE email = :email';
+          $request = 'SELECT * FROM ' . PREFIXE . 'utilisateur WHERE email = :email';
           $query = $this->DB->prepare($request);
 
           $query->execute(['email' => $email]);
