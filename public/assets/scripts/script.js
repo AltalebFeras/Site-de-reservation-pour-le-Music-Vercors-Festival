@@ -17,10 +17,13 @@ btnSuivant1.addEventListener("click", () => {
     fieldsetReservation.style.display = "none";
     fieldsetOptions.style.display = "block";
     fieldsetCoordonnees.style.display = "none";
+    if (parseInt(document.getElementById("nombrePlaces").value, 10) >= 1) {
+      alertOption.textContent = "";
+    }
     alertOption.textContent = "";
   } else {
     // Si la validation échoue, affichez une alerte et empêchez la transition
-    alertOption.textContent = "Choisissez un tarif";
+    alertOption.textContent = "Choisissez un pass";
   }
 });
 
@@ -364,7 +367,7 @@ function toggleCheck(checkbox) {
       }
     });
   } else {
-    alertOption.textContent = "Choisissez un tarif";
+    alertOption.textContent = "Choisissez un pass";
     checkboxes.forEach(function (el) {
       if (!fieldset.contains(el)) {
         // Exclure  les checkboxes de ce  fieldset
@@ -385,7 +388,7 @@ function toggleRadio(radio) {
       }
     });
   } else {
-    alertOption.textContent = "Choisissez un tarif";
+    alertOption.textContent = "Choisissez un pass";
     document.querySelectorAll('input[type="radio"]').forEach(function (el) {
       el.disabled = false;
     });
@@ -417,12 +420,38 @@ document
     event.target.value = formattedPhoneNumber;
   });
 
-  function enableCheckbox() {
-    var checkbox = document.getElementById("RGPD");
-    if (checkbox.disabled) {
-      checkbox.disabled = false;
-    }
+function enableCheckbox() {
+  var checkbox = document.getElementById("RGPD");
+  if (checkbox.disabled) {
+    checkbox.disabled = false;
   }
-  
-  // Periodically check and enable the checkbox
-  setInterval(enableCheckbox, 1000); // Check every second (adjust as needed)
+}
+
+setInterval(enableCheckbox, 1000);
+
+let rgpdCheckbox = document.getElementById("RGPD");
+let reserverButton = document.getElementById("btnReserver");
+
+rgpdCheckbox.addEventListener("change", function () {
+  if (rgpdCheckbox.checked) {
+    reserverButton.disabled = false;
+    alertMessageRGPD.textContent = "";
+  } else {
+    reserverButton.disabled = true;
+    alertMessageRGPD.textContent = "Please agree to the RGPD terms.";
+  }
+});
+
+let form = document.getElementById("inscription");
+let alertMessageRGPD = document.getElementById("alertMessageRGPD");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  if (rgpdCheckbox.checked) {
+    form.submit();
+  } else {
+    alertMessageRGPD.textContent = "Please agree to the RGPD terms.";
+    rgpdCheckbox.focus();
+  }
+});
