@@ -4,12 +4,21 @@ include_once __DIR__ . '/Includes/header.php';
 
 include_once __DIR__ . '/Includes/colonne.php';
 
-    var_dump($_SESSION['role']);
+echo"From dashboard this echo => role is" . " ". $_SESSION['role'];
+// echo "<br>";
+// echo ("utilisateurID =$utilisateurID");
+
 
 ?>
 <div class="content">
 
-<?php
+  <?php
+
+  if($_SESSION['role']=='user'){
+     
+    include_once __DIR__ . '/utilisateurView/compte.php';
+
+  }
   // switch ($section) {
   //   case '':
   //     switch ($action) {

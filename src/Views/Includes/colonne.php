@@ -13,18 +13,19 @@ $utilisateurRepositories = new UtilisateurRepositories();
   if (isset($_SESSION['role'])) {
     if ($_SESSION['role'] == 'admin') {
       echo "<h2>Bonjour Admin!</h2>";
+      echo '<ul>
+      <li class="administration ' . ($section == "administration" ? "actif" : "") . '" onclick="location.href=\'/tableau-admin\'">Administration</li>
+    </ul>';
     } elseif ($_SESSION['role'] == 'user') {
-      $utilisateur = $_SESSION['utilisateur'];
-      // Assuming getPrenom() is a method of UtilisateurRepositories
-      $prenom = $utilisateurRepositories->getPrenom($utilisateur);
+      $utilisateurID = $_SESSION['utilisateur'];
+      echo ("utilisateurID =$utilisateurID");
+      $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
       echo "<h2>Bonjour $prenom!</h2>";
-      $all = $utilisateurRepositories->getAll($utilisateur);
-      var_dump($all);
+      // $all = $utilisateurRepositories->getAllUtilisateurDetails($utilisateurID);
+      // var_dump($all);
     }
   }
   ?>
 
-  <ul>
-    <li class="administration <?= $section == "administration" ? "actif" : "" ?>" onclick="location.href='/tableau-admin'">Administration</li>
-  </ul>
+  
 </div>

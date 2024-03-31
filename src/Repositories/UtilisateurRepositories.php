@@ -35,7 +35,7 @@ class UtilisateurRepositories
       $statement = $this->DB->query($sql);
       return $statement->fetchAll(PDO::FETCH_ASSOC);
   }
-  public function getAll($id): array
+  public function getAllUtilisateurDetails($id): array
   {
       $sql = "SELECT * FROM " . PREFIXE . "utilisateur WHERE utilisateurID = :id";
       $statement = $this->DB->prepare($sql);
@@ -166,6 +166,7 @@ class UtilisateurRepositories
       $_SESSION['success_message'] = "Votre inscription est validée!";
       $_SESSION['role']= 'user';
       $_SESSION['utilisateur'] = $this->DB->lastInsertId();
+      
       header('location: ' . HOME_URL . 'connexion');
       exit;
   }
@@ -211,6 +212,7 @@ if ($row) {
   if (password_verify($motDePasse, $utilisateurData['motDePasse'])) {
       // Password is correct, start session and redirect to treatment script
       $_SESSION['utilisateur'] = $utilisateurData['utilisateurID'];
+      
       $_SESSION['connecté'] = true;
       header('location: ' . HOME_URL . 'dashboard');
       exit;
@@ -241,12 +243,14 @@ if ($row) {
           return $utilisateur ? $utilisateur : false;
      
   }
-  public function deleteThisUtilisateur($id): bool
+  public function deleteThisUser($utilisateurID): bool
 {
+    $utilisateurID = $_SESSION['utilisateur'];
     $sql = "DELETE FROM " . PREFIXE . "utilisateur WHERE utilisateurID = :id";
     $statement = $this->DB->prepare($sql);
-    $statement->bindParam(':id', $id, PDO::PARAM_INT);
-    return $statement->execute();
+    $statement->bindParam(':id', $utilisateurID, PDO::PARAM_INT);
+    return $statement->execute(["utilisateurID" =>$_SESSION['utilisateur']]
+);
 }
 
 }

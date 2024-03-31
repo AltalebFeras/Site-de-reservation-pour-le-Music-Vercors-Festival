@@ -6,12 +6,13 @@ use src\Models\Database;
 use src\Services\Reponse;
 use src\Repositories\UtilisateurRepositories;
 
+
 class UtilisateurController
 {
     use Reponse;
     private $DB;
     private $UtilisateurRepositories;
-
+   
 
     public function __construct()
     {
@@ -32,6 +33,15 @@ class UtilisateurController
 
         
     }
+    public function supprimerUtilisateur(){
+      $utilisateurID = $_SESSION['utilisateur'];
+        $this->UtilisateurRepositories->deleteThisUser($utilisateurID); 
+        $this->render("Accueil", ["erreur" => ""]);
+        echo "User ID to delete: " . $utilisateurID;  
+
+
+    }
+   
 
     public function showDashboard(){
         if (isset($_SESSION["connecté"])) {

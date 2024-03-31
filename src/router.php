@@ -62,7 +62,16 @@ switch ($route) {
   case HOME_URL . 'deconnexion':
     $HomeController->quit();
     break;
-
+    
+    case HOME_URL . 'dashboard' . "supprimer_mon_compte":
+                  if ($methode === "POST") {
+                      $UtilisateurController->supprimerUtilisateur();
+                      $HomeController->quit();
+                  }
+                  break;
+                
+     
+  
     // case $routeComposee[0] == "dashboard":
     //   if (isset($_SESSION["connecté"])) {
     //     // On a ici toutes les routes qu'on a à partir du dashboard
