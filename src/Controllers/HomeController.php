@@ -19,42 +19,57 @@ class HomeController
 
     $this->render("Accueil", ["erreur" => $erreur]);
   }
- 
+  public function connexion(): void
+  {
+    if (isset($_GET['erreur'])) {
+      $erreur = htmlspecialchars($_GET['erreur']);
+    } else {
+      $erreur = '';
+    }
+
+    $this->render("connexion", ["erreur" => $erreur]);
+  }
 
   public function indexAdmin(): void
   {
-    $erreur = isset($_GET['erreur']) ? htmlspecialchars($_GET['erreur']) : '';
+    $erreur = isset($_GET['erreur']) ? htmlspecialchars($_GET['erreur']) : 'error';
+
+    $_SESSION['role']= 'admin';
 
     $this->render("admin", ["erreur" => $erreur]);
   }
   public function indexConnexion(): void
 {
     $erreur = isset($_GET['erreur']) ? htmlspecialchars($_GET['erreur']) : '';
+    
+    $_SESSION['role']= 'user';
+
 
     $this->render("connexion", ["erreur" => $erreur]);
 }
 
   public function authAdmin(string $motDePasseAdmin): void
   {
-    if ($motDePasseAdmin === 'admin') {
-      $_SESSION['connecté'] = TRUE;
+      
+      if ($motDePasseAdmin === 'admin' && $_SESSION['role']= 'admin') {
+      $_SESSION['connecté'] = true;
       header('location: ' . HOME_URL . 'dashboard');
       die();
     } else {
-      header('location: ' . HOME_URL . '?erreur=connexion');
+      header('location: ' . HOME_URL .'admin'. '?erreur=connexion');
     }
   }
 
 
   // will change the password for user to motDePasse
-  public function authUser(string $password): void
+  public function authUser(string $motDePasseAdmin): void
   {
-    if ($password === 'admin') {
+    if ($motDePasseAdmin === 'admin') {
       $_SESSION['connecté'] = TRUE;
       header('location: ' . HOME_URL . 'dashboard');
       die();
     } else {
-      header('location: ' . HOME_URL . '?erreur=connexion');
+      header('location: ' . HOME_URL .'admin'.'?erreur=connexion');
     }
   }
 
