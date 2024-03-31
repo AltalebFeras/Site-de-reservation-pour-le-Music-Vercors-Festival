@@ -59,14 +59,14 @@ class UtilisateurController
   {
     if (isset($_SESSION["connecté"])) {
 
-      $this->render("compte", ["erreur" => ""]);
+      $this->render("utilisateurView/compte", ["erreur" => ""]);
     }
   }
   public function afficherReservation()
   {
     if (isset($_SESSION["connecté"])) {
 
-      $this->render("reservation", ["erreur" => ""]);
+      $this->render("utilisateurView/reservation", ["erreur" => ""]);
     }
   }
 }
