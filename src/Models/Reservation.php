@@ -24,10 +24,10 @@ class Reservation {
         $this->NombreReservations = $NombreReservations;
     }
 
-    public function getPrixTotal(): int {
+    public function getPrixTotal(): float {
         return $this->PrixTotal;
     }
-    public function setPrixTotal(int $PrixTotal): void {
+    public function setPrixTotal(float $PrixTotal): void {
         $this->PrixTotal = $PrixTotal;
     }
 
