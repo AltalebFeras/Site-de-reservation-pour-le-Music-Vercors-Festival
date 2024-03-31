@@ -62,74 +62,51 @@ switch ($route) {
   case HOME_URL . 'deconnexion':
     $HomeController->quit();
     break;
-    
-    case HOME_URL . 'dashboard' . "supprimer_mon_compte":
-                  if ($methode === "POST") {
-                      $UtilisateurController->supprimerUtilisateur();
-                      $HomeController->quit();
-                  }
-                  break;
-                
-     
-  
-    // case $routeComposee[0] == "dashboard":
-    //   if (isset($_SESSION["connecté"])) {
-    //     // On a ici toutes les routes qu'on a à partir du dashboard
 
-    //     switch ($route) {
-    //       case $routeComposee[1] == "films":
-    //         // On a ici toutes les routes qu'on peut faire pour les films
-    //         switch ($route) {
-    //           case $routeComposee[2] == "new":
-    //             if ($methode === "POST") {
-    //               $data = $_POST;
-    //               $FilmController->save($data);
-    //             } else {
-    //               $FilmController->new();
-    //             }
-    //             break;
+  case HOME_URL . 'dashboard' . 'supprimer':
+    if ($methode === "POST") {
+      $utilisateurID = $_SESSION['utilisateur'];
+      $UtilisateurController->supprimerUtilisateur();
+    }
+    break;
 
-    //           case $routeComposee[2] == 'details':
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->show($idFilm);
-    //             break;
 
-    //           case $routeComposee[2] == "edit":
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->edit($idFilm);
-    //             break;
 
-    //           case $routeComposee[2] == "update":
-    //             if ($methode === "POST") {
-    //               $idFilm = end($routeComposee);
-    //               $data = $_POST;
-    //               $FilmController->save($data, $idFilm);
-    //             }
-    //             break;
+  case $routeComposee[0] == "dashboard":
+    if (isset($_SESSION["connecté"])) {
+      // On a ici toutes les routes qu'on a à partir du dashboard
 
-    //           case $routeComposee[2] == "delete":
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->delete($idFilm);
-    //             break;
+      switch ($route) {
+        case $routeComposee[1] == "compte":
+          $UtilisateurController->afficherCompte();
+          case $routeComposee[1] == "reservation":
+            $UtilisateurController->afficherReservation();
 
-    //           default:
-    //             // par défaut on voit la liste des films.
-    //             $FilmController->index();
-    //             break;
-    //         }
 
-    //         break;
+          switch ($route) {
 
-    //       default:
-    //         // par défaut une fois connecté, on voit la liste des films.
-    //         $FilmController->index();
-    //         break;
-    //     }
-    //   } else {
-    //     header("location: " . HOME_URL);
-    //     die;
-    //   }
-    //   break;
+            case $routeComposee[2] == "delete":
+
+              break;
+
+            default:
+
+              $UtilisateurController->showDashboard();
+              break;
+          }
+
+          break;
+
+        default:
+          // par défaut une fois connecté, on voit la liste des films.
+          $UtilisateurController->showDashboard();
+          break;
+      }
+    } else {
+      header("location: " . HOME_URL);
+      die;
+    }
+    break;
 
   default:
     $HomeController->page404();

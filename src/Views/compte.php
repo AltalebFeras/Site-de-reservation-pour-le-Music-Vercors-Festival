@@ -1,4 +1,13 @@
-   <form action="dashboard/supprimer_mon_compte" method="post">
+   <?php
+
+    include_once __DIR__ . '/Includes/header.php';
+
+    include_once __DIR__ . '/Includes/colonne.php';
+    echo '<div>
+    <a href="dashboard" class="btn btn-info">dashoard</a>'
+    ?>
+
+   <form action="#" method="post">
        <fieldset class="d-flex flex-column ">
            <legend>Vos Coordonnées</legend>
            <label for="nom">Votre nom :</label>
@@ -62,3 +71,6 @@
 
        </fieldset>
    </form>
+
+   <?php
+    include_once __DIR__ . '/Includes/footer.php';

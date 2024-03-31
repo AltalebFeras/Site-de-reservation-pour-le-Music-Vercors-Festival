@@ -9,49 +9,64 @@ use src\Repositories\UtilisateurRepositories;
 
 class UtilisateurController
 {
-    use Reponse;
-    private $DB;
-    private $UtilisateurRepositories;
-   
+  use Reponse;
+  private $DB;
+  private $UtilisateurRepositories;
 
-    public function __construct()
-    {
-        $database = new Database;
-        $this->DB = $database->getDB();
-        $this->UtilisateurRepositories = new UtilisateurRepositories; 
-        require_once __DIR__ . '/../../config.php';
-    }
 
-    public function traitmentUtilisateur(){
-        $this->UtilisateurRepositories->sInscrire(); 
-      $this->render("connexion", ["erreur" => ""]);
+  public function __construct()
+  {
+    $database = new Database;
+    $this->DB = $database->getDB();
+    $this->UtilisateurRepositories = new UtilisateurRepositories;
+    require_once __DIR__ . '/../../config.php';
+  }
 
-    }
-    public function connexionUtilisateur(){
-        $this->UtilisateurRepositories->seConnecter(); 
-      $this->render("dashboard", ["erreur" => ""]);
+  public function traitmentUtilisateur()
+  {
+    $this->UtilisateurRepositories->sInscrire();
+    $this->render("connexion", ["erreur" => ""]);
+  }
+  public function connexionUtilisateur()
+  {
+    $this->UtilisateurRepositories->seConnecter();
+    $this->render("dashboard", ["erreur" => ""]);
+  }
+  // UtilisateurController.php
 
-        
-    }
-    public function supprimerUtilisateur(){
+  public function supprimerUtilisateur()
+  {
+    if (isset($_SESSION['utilisateur'])) {
       $utilisateurID = $_SESSION['utilisateur'];
-        $this->UtilisateurRepositories->deleteThisUser($utilisateurID); 
-        $this->render("Accueil", ["erreur" => ""]);
-        echo "User ID to delete: " . $utilisateurID;  
-
-
+      $success = $this->UtilisateurRepositories->deleteThisUser($utilisateurID);
+      if ($success) {
+        session_destroy();
+        header('location: ' . HOME_URL);
+        exit;
+      }
     }
-   
-
-    public function showDashboard(){
-        if (isset($_SESSION["connecté"])) {
-            
-            $this->render("dashboard", ["erreur" => ""]);
+  }
 
 
-        }
+  public function showDashboard()
+  {
+    if (isset($_SESSION["connecté"])) {
 
-
+      $this->render("dashboard", ["erreur" => ""]);
     }
-    
+  }
+  public function afficherCompte()
+  {
+    if (isset($_SESSION["connecté"])) {
+
+      $this->render("compte", ["erreur" => ""]);
+    }
+  }
+  public function afficherReservation()
+  {
+    if (isset($_SESSION["connecté"])) {
+
+      $this->render("reservation", ["erreur" => ""]);
+    }
+  }
 }
