@@ -1,0 +1,163 @@
+body {
+  background: linear-gradient(to right, #0b99d5, #0bc1c9, #a5d985, #c3975b);
+  background-repeat: no-repeat;
+  border: 1px solid black;
+  padding: 30px;
+  max-width: 1440px;
+}
+form {
+  max-width: 600px;
+  margin: 20px auto;
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(to left, #0b99d5, #0bc1c9, #a5d985, #c3975b);
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  background: linear-gradient(to right, #ffcccc 0%, #ccffcc 33%, #ccccff 66%);
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
+#fieldsetConnexion {
+  display: flex;
+  flex-direction: column;
+}
+
+legend {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.btnInscription {
+  width: fit-content;
+}
+
+#pass1jourDate,
+#pass2joursDate,
+#pass1jourDateReduit,
+#pass2joursDateReduit {
+  padding: 1rem;
+}
+
+input:hover,
+a:hover {
+  background-color: #b8e9ed;
+}
+
+input:user-valid {
+  border: 2px solid green;
+}
+
+input:user-valid + span::before {
+  content: "✓";
+  color: green;
+}
+
+input:user-invalid {
+  border: 2px solid red;
+}
+
+input:user-invalid + span::before {
+  content: "✖";
+  color: red;
+}
+
+#SignUp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.logo {
+  width: 200px;
+  height: 38px;
+}
+
+input[type="number"],
+input[type="email"],
+input[type="password" i],
+input[type="text"] {
+  padding: 0.5rem;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  max-width: 20rem;
+  margin-bottom: 10px;
+  
+}
+label {
+  margin-bottom: 0.2rem;
+  margin-right: 0.2rem;
+}
+#btnPrecedent2 {
+  width: 50%;
+}
+#btnReserver {
+  width: 40%;
+  font-size: large;
+}
+
+#header {
+  background: linear-gradient(to left, #ffcccc 0%, #ccffcc 33%, #ccccff 66%);
+  padding: 36px;
+  max-width: 1440px;
+  display: FLEX;
+  flex-direction: row;
+  justify-content: space-between;
+}
+a {
+  text-decoration: none;
+  color: rgb(163, 23, 23);
+}
+
+footer {
+  max-width: 1440px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 0.8em;
+  color: #01020d;
+  background: linear-gradient(to right, #ffcccc 0%, #ccffcc 33%, #ccccff 66%);
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#coordonnees {
+  display: flex;
+  flex-direction: column;
+}
+#liensReseaux {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+#logoYt,
+#logoInsta,
+#logoFb {
+  width: 30px;
+  height: 30px;
+}
+#alertBigNumber {
+  display: none;
+}
+#pass1jourDate,
+#pass2joursDate,
+#tarifsReduits,
+#pass1jourDateReduit,
+#pass2joursDateReduit,
+#casquesEnfants {
+  display: none;
+}
+#togglePassword{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 570px) {
+  .logo {
+    display: none;
+  }
+}
