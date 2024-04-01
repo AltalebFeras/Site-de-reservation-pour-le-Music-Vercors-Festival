@@ -20,12 +20,8 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
-      include_once __DIR__ . '/Views/utilisateurView/reservationCalculation.php';
-
-      var_dump($_SERVER['REQUEST_METHOD'] = $_POST);
-      die;
-
       $UtilisateurController->traitmentUtilisateur();
+      
     } else {
       $HomeController->index();
     }

@@ -34,7 +34,6 @@ class Reservation
     public function setReservationID($reservationID)
     {
         $this->reservationID = $reservationID;
-
     }
 
     /**
@@ -56,7 +55,6 @@ class Reservation
     public function setNombreReservations($nombre_Reservations)
     {
         $this->nombre_Reservations = $nombre_Reservations;
-
     }
 
     /**
@@ -78,8 +76,6 @@ class Reservation
     public function setPrixTotal($prix_Total)
     {
         $this->prix_Total = $prix_Total;
-
-
     }
 
     /**
@@ -101,6 +97,6 @@ class Reservation
     public function setUtilisateurID($utilisateurID)
     {
         $this->utilisateurID = $utilisateurID;
-
+        return  $this->utilisateurID = $_SESSION['$utilisateur'];
     }
-   }
+}

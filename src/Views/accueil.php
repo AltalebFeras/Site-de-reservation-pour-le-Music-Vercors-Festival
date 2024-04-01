@@ -8,8 +8,16 @@ if (isset($_SESSION['error_message0'])) {
   unset($_SESSION['error_message0']);
 }
 ?>
-<div id="totalPriceResult"></div>
 <form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
+
+  <div class="d-flex">
+    <input type="checkbox" class="d-none" id="Actualiserleprix" />
+    <label class="mx-2" for="Actualiserleprix">↻</label>
+    <div id="totalPriceResult"></div>
+  </div>
+
+
+
   <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
 
     <legend>Réservation</legend>

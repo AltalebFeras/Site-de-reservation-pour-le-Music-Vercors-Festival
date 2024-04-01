@@ -491,27 +491,39 @@ function calculateTotalPrice() {
   var lugePrice = 5;
   var totalExtrasPrice = 0;
 
-   // Check if all tenteNuit options are selected
-   var allTenteNuitsChecked = document.getElementById("tenteNuit1").checked && document.getElementById("tenteNuit2").checked && document.getElementById("tenteNuit3").checked;
-   if (allTenteNuitsChecked) {
-       totalExtrasPrice += tent3NuitsPrice;
-   } else {
-       // Check if any tenteNuit option is selected and calculate the total tent price accordingly
-       if (document.getElementById("tenteNuit1").checked) totalExtrasPrice += tentPrice;
-       if (document.getElementById("tenteNuit2").checked) totalExtrasPrice += tentPrice;
-       if (document.getElementById("tenteNuit3").checked) totalExtrasPrice += tentPrice;
-   }
+  // Check if all tenteNuit options are selected
+  var allTenteNuitsChecked =
+    document.getElementById("tenteNuit1").checked &&
+    document.getElementById("tenteNuit2").checked &&
+    document.getElementById("tenteNuit3").checked;
+  if (allTenteNuitsChecked) {
+    totalExtrasPrice += tent3NuitsPrice;
+  } else {
+    // Check if any tenteNuit option is selected and calculate the total tent price accordingly
+    if (document.getElementById("tenteNuit1").checked)
+      totalExtrasPrice += tentPrice;
+    if (document.getElementById("tenteNuit2").checked)
+      totalExtrasPrice += tentPrice;
+    if (document.getElementById("tenteNuit3").checked)
+      totalExtrasPrice += tentPrice;
+  }
 
-   // Check if all vanNuit options are selected
-   var allVanNuitsChecked = document.getElementById("vanNuit1").checked && document.getElementById("vanNuit2").checked && document.getElementById("vanNuit3").checked;
-   if (allVanNuitsChecked) {
-       totalExtrasPrice += van3NuitsPrice;
-   } else {
-       // Check if any vanNuit option is selected and calculate the total van price accordingly
-       if (document.getElementById("vanNuit1").checked) totalExtrasPrice += vanPrice;
-       if (document.getElementById("vanNuit2").checked) totalExtrasPrice += vanPrice;
-       if (document.getElementById("vanNuit3").checked) totalExtrasPrice += vanPrice;
-   }
+  // Check if all vanNuit options are selected
+  var allVanNuitsChecked =
+    document.getElementById("vanNuit1").checked &&
+    document.getElementById("vanNuit2").checked &&
+    document.getElementById("vanNuit3").checked;
+  if (allVanNuitsChecked) {
+    totalExtrasPrice += van3NuitsPrice;
+  } else {
+    // Check if any vanNuit option is selected and calculate the total van price accordingly
+    if (document.getElementById("vanNuit1").checked)
+      totalExtrasPrice += vanPrice;
+    if (document.getElementById("vanNuit2").checked)
+      totalExtrasPrice += vanPrice;
+    if (document.getElementById("vanNuit3").checked)
+      totalExtrasPrice += vanPrice;
+  }
 
   if (document.getElementById("tente3Nuits").checked)
     totalExtrasPrice += tent3NuitsPrice;
@@ -531,4 +543,5 @@ function calculateTotalPrice() {
   // Display the result in a div
   var resultDiv = document.getElementById("totalPriceResult");
   resultDiv.innerHTML = "Total Price: " + totalPrice + "€";
+ 
 }
