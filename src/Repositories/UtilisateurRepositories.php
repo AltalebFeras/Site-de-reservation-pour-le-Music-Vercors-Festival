@@ -242,7 +242,7 @@ class UtilisateurRepositories
 
         return $utilisateur ? $utilisateur : false;
     }
-    // UtilisateurRepositories.php
+   
     public function deleteThisUser($utilisateurID): bool
     {
         $sql = "DELETE FROM " . PREFIXE . "utilisateur WHERE utilisateurID = :id";

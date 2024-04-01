@@ -2,6 +2,18 @@ let fieldsetReservation = document.getElementById("reservation");
 let fieldsetOptions = document.getElementById("options");
 let fieldsetCoordonnees = document.getElementById("coordonnees");
 
+let choixJour1 = document.getElementById("choixJour1");
+let choixJour2 = document.getElementById("choixJour2");
+let choixJour3 = document.getElementById("choixJour3");
+let choixJour12 = document.getElementById("choixJour12");
+let choixJour23 = document.getElementById("choixJour23");
+
+let choixJour1reduit = document.getElementById("choixJour1reduit");
+let choixJour2reduit = document.getElementById("choixJour2reduit");
+let choixJour3reduit = document.getElementById("choixJour3reduit");
+let choixJour12reduit = document.getElementById("choixJour12reduit");
+let choixJour23reduit = document.getElementById("choixJour23reduit");
+
 //Par défaut afficher seulement la section "réservation"
 fieldsetReservation.style.display = "block";
 fieldsetOptions.style.display = "none";
@@ -17,38 +29,18 @@ btnSuivant1.addEventListener("click", () => {
     fieldsetReservation.style.display = "none";
     fieldsetOptions.style.display = "block";
     fieldsetCoordonnees.style.display = "none";
+    if (parseInt(document.getElementById("nombrePlaces").value, 10) >= 1) {
+      alertOption.textContent = "";
+    }
     alertOption.textContent = "";
   } else {
     // Si la validation échoue, affichez une alerte et empêchez la transition
-    alertOption.textContent = "Choisissez un tarif";
+    alertOption.textContent = "Choisissez un pass";
   }
 });
 
-// Fonction pour valider la partie 1
-// Fonction pour valider la partie 1
 function validerPartie1() {
-  let choixJour1 = document.getElementById("choixJour1");
-  let choixJour2 = document.getElementById("choixJour2");
-  let choixJour3 = document.getElementById("choixJour3");
-  let choixJour12 = document.getElementById("choixJour12");
-  let choixJour23 = document.getElementById("choixJour23");
-
-  let choixJour1reduit = document.getElementById("choixJour1reduit");
-  let choixJour2reduit = document.getElementById("choixJour2reduit");
-  let choixJour3reduit = document.getElementById("choixJour3reduit");
-  let choixJour12reduit = document.getElementById("choixJour12reduit");
-  let choixJour23reduit = document.getElementById("choixJour23reduit");
-
-  // Check checkboxes
-
-  // Add your validation conditions here
   let auMoinsUnPassCoche =
-    // pass1jourCheckbox.checked ||
-    // pass2joursCheckbox.checked ||
-    pass3joursCheckbox.checked ||
-    // pass1jourReduitCheckbox.checked ||
-    // pass2joursReduitCheckbox.checked ||
-    pass3joursReduitCheckbox.checked ||
     choixJour1.checked ||
     choixJour2.checked ||
     choixJour3.checked ||
@@ -58,7 +50,9 @@ function validerPartie1() {
     choixJour2reduit.checked ||
     choixJour3reduit.checked ||
     choixJour12reduit.checked ||
-    choixJour23reduit.checked;
+    choixJour23reduit.checked ||
+    pass3joursCheckbox.checked ||
+    pass3joursReduitCheckbox.checked;
 
   let nombrePlacesValide =
     parseInt(document.getElementById("nombrePlaces").value, 10) >= 1;
@@ -195,12 +189,24 @@ function afficherMasquerTarifsReduits() {
     pass1jourCheckbox.checked = false;
     pass2joursCheckbox.checked = false;
     pass3joursCheckbox.checked = false;
+    // choixJour1.checked = false;
+    // choixJour2.checked = false;
+    // choixJour3.checked = false;
+    // choixJour12.checked = false;
+    // choixJour23.checked = false;
+
     tarifsReduitsSection.style.display = "block";
     tarifsNormauxSection.style.display = "none";
   } else {
     pass1jourReduitCheckbox.checked = false;
     pass2joursReduitCheckbox.checked = false;
     pass3joursReduitCheckbox.checked = false;
+    // choixJour1reduit.checked = false;
+    // choixJour2reduit.checked = false;
+    // choixJour3reduit.checked = false;
+    // choixJour12reduit.checked = false;
+    // choixJour23reduit.checked = false;
+
     tarifsReduitsSection.style.display = "none";
     tarifsNormauxSection.style.display = "block";
   }
@@ -351,46 +357,6 @@ venirAvecDesEnfants.addEventListener("change", function () {
   }
 });
 
-function toggleCheck(checkbox) {
-  let fieldset = document.getElementById("options"); // recuperer le fieldset
-  let checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-  if (checkbox.checked) {
-    checkboxes.forEach(function (el) {
-      if (el !== checkbox && !fieldset.contains(el)) {
-        // Exclure  les checkboxes de ce  fieldset
-        el.disabled = true;
-        alertOption.textContent = "";
-      }
-    });
-  } else {
-    alertOption.textContent = "Choisissez un tarif";
-    checkboxes.forEach(function (el) {
-      if (!fieldset.contains(el)) {
-        // Exclure  les checkboxes de ce  fieldset
-        el.disabled = false;
-      }
-    });
-  }
-}
-
-// function pour limiter les mulitiplication de chocher les inputs type checkbox.
-
-function toggleRadio(radio) {
-  if (radio.checked) {
-    document.querySelectorAll('input[type="radio"]').forEach(function (el) {
-      if (el !== radio) {
-        el.disabled = true;
-        alertOption.textContent = "";
-      }
-    });
-  } else {
-    alertOption.textContent = "Choisissez un tarif";
-    document.querySelectorAll('input[type="radio"]').forEach(function (el) {
-      el.disabled = false;
-    });
-  }
-}
 document
   .getElementById("togglePassword")
   .addEventListener("click", function () {
@@ -417,12 +383,64 @@ document
     event.target.value = formattedPhoneNumber;
   });
 
-  function enableCheckbox() {
-    var checkbox = document.getElementById("RGPD");
-    if (checkbox.disabled) {
-      checkbox.disabled = false;
-    }
+function enableCheckboxChoixJour() {
+  let pass1jour = document.getElementById("pass1jour");
+  let choixJour1 = document.getElementById("choixJour1");
+  let choixJour2 = document.getElementById("choixJour2");
+  let choixJour3 = document.getElementById("choixJour3");
+  if (!pass1jour.checked) {
+    choixJour1.checked = false;
+    choixJour2.checked = false;
+    choixJour3.checked = false;
   }
-  
-  // Periodically check and enable the checkbox
-  setInterval(enableCheckbox, 1000); // Check every second (adjust as needed)
+  let pass1jourreduit = document.getElementById("pass1jourreduit");
+  if (!pass1jourreduit.checked) {
+    choixJour1reduit.checked = false;
+    choixJour2reduit.checked = false;
+    choixJour3reduit.checked = false;
+  }
+}
+
+setInterval(enableCheckboxChoixJour, 10);
+
+function enableCheckboxChoixJours2() {
+  let pass2jours = document.getElementById("pass2jours");
+  let choixJour12 = document.getElementById("choixJour12");
+  let choixJour23 = document.getElementById("choixJour23");
+  if (!pass2jours.checked) {
+    choixJour12.checked = false;
+    choixJour23.checked = false;
+  }
+  let pass2joursreduit = document.getElementById("pass2joursreduit");
+  if(!pass2joursreduit.checked){
+    choixJour12reduit.checked = false;
+    choixJour23reduit.checked = false;
+  }
+}
+setInterval(enableCheckboxChoixJours2, 10);
+
+let rgpdCheckbox = document.getElementById("RGPD");
+let reserverButton = document.getElementById("btnReserver");
+rgpdCheckbox.addEventListener("change", function () {
+  if (rgpdCheckbox.checked) {
+    reserverButton.disabled = false;
+    alertMessageRGPD.textContent = "";
+  } else {
+    reserverButton.disabled = true;
+    alertMessageRGPD.textContent = "Please agree to the RGPD terms.";
+  }
+});
+
+let form = document.getElementById("inscription");
+let alertMessageRGPD = document.getElementById("alertMessageRGPD");
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  if (rgpdCheckbox.checked) {
+    form.submit();
+  } else {
+    alertMessageRGPD.textContent = "Please agree to the RGPD terms.";
+    rgpdCheckbox.focus();
+  }
+});
