@@ -71,7 +71,12 @@ class ReservationRepository {
   }
 
   public function CreateReservation(Reservation $Reservation): bool {
+
+    $sql = "INSERT INTO " . PREFIXE . "reservation (nombre_reservations, prix_total, utilisateurID)
+     VALUES (:nombreReservations, :prixTotal, :utilisateurID)";
+
     $sql = "INSERT INTO " . PREFIXE . "mvf_reservation (nombre_reservations, prix_total, utilisateurID) VALUES (:nombre_reservations, :prix_total, :utilisateurID)";
+
 
     $statement = $this->DB->prepare($sql);
 

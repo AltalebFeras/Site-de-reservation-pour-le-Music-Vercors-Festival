@@ -20,7 +20,11 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
-      // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
+      include_once __DIR__ . '/Views/utilisateurView/reservationCalculation.php';
+
+      var_dump($_SERVER['REQUEST_METHOD'] = $_POST);
+      die;
+
       $UtilisateurController->traitmentUtilisateur();
     } else {
       $HomeController->index();
@@ -63,64 +67,30 @@ switch ($route) {
     $HomeController->quit();
     break;
 
-    // case $routeComposee[0] == "dashboard":
-    //   if (isset($_SESSION["connecté"])) {
-    //     // On a ici toutes les routes qu'on a à partir du dashboard
+  case $routeComposee[0] == "dashboard":
+    if (isset($_SESSION["connecté"])) {
 
-    //     switch ($route) {
-    //       case $routeComposee[1] == "films":
-    //         // On a ici toutes les routes qu'on peut faire pour les films
-    //         switch ($route) {
-    //           case $routeComposee[2] == "new":
-    //             if ($methode === "POST") {
-    //               $data = $_POST;
-    //               $FilmController->save($data);
-    //             } else {
-    //               $FilmController->new();
-    //             }
-    //             break;
-
-    //           case $routeComposee[2] == 'details':
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->show($idFilm);
-    //             break;
-
-    //           case $routeComposee[2] == "edit":
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->edit($idFilm);
-    //             break;
-
-    //           case $routeComposee[2] == "update":
-    //             if ($methode === "POST") {
-    //               $idFilm = end($routeComposee);
-    //               $data = $_POST;
-    //               $FilmController->save($data, $idFilm);
-    //             }
-    //             break;
-
-    //           case $routeComposee[2] == "delete":
-    //             $idFilm = end($routeComposee);
-    //             $FilmController->delete($idFilm);
-    //             break;
-
-    //           default:
-    //             // par défaut on voit la liste des films.
-    //             $FilmController->index();
-    //             break;
-    //         }
-
-    //         break;
-
-    //       default:
-    //         // par défaut une fois connecté, on voit la liste des films.
-    //         $FilmController->index();
-    //         break;
-    //     }
-    //   } else {
-    //     header("location: " . HOME_URL);
-    //     die;
-    //   }
-    //   break;
+      switch ($route) {
+        case $routeComposee[1] == "compte":
+          $UtilisateurController->afficherCompte();
+          if ($methode === "POST") {
+            $utilisateurID = $_SESSION['utilisateur'];
+            $UtilisateurController->supprimerUtilisateur();
+          }
+          break;
+        case $routeComposee[1] == "reservation":
+          $UtilisateurController->afficherReservation();
+          break;
+        default:
+          // show the dashboard by default
+          $UtilisateurController->showDashboard();
+          break;
+      }
+    } else {
+      header("location: " . HOME_URL);
+      die;
+    }
+    break;
 
   default:
     $HomeController->page404();

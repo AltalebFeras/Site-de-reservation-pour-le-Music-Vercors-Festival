@@ -1,13 +1,17 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
 
+
+
 if (isset($_SESSION['error_message0'])) {
   echo '<div class="alert alert-danger" role="alert">' . $_SESSION['error_message0'] . '</div>';
   unset($_SESSION['error_message0']);
 }
 ?>
-<form action="" id="inscription" method="post">
-  <fieldset id="reservation">
+<div id="totalPriceResult"></div>
+<form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
+  <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
+
     <legend>Réservation</legend>
     <h3>Nombre de réservation(s) :</h3>
     <input type="number" name="nombrePlaces" id="nombrePlaces" min="1" max="20" required>
@@ -24,13 +28,13 @@ if (isset($_SESSION['error_message0'])) {
       <!-- Si case cochée, afficher le choix du jour -->
       <section id="pass1jourDate">
         <div>
-          <input type="checkbox" name="choixJour" id="choixJour1" value="choixJour1" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJour" id="choixJour1" value="choixJour1" />
           <label for="choixJour1">Pass pour la journée du 01/07</label>
         </div>
-        <div> <input type="checkbox" name="choixJour" id="choixJour2" value="choixJour2" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+        <div> <input type="radio" name="choixJour" id="choixJour2" value="choixJour2" />
           <label for="choixJour2">Pass pour la journée du 02/07</label>
         </div>
-        <div> <input type="checkbox" name="choixJour" id="choixJour3" value="choixJour3" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+        <div> <input type="radio" name="choixJour" id="choixJour3" value="choixJour3" />
           <label for="choixJour3">Pass pour la journée du 03/07</label>
         </div>
       </section>
@@ -41,11 +45,11 @@ if (isset($_SESSION['error_message0'])) {
       <!-- Si case cochée, afficher le choix des jours -->
       <section id="pass2joursDate">
         <div>
-          <input type="checkbox" name="choixJour2" id="choixJour12" value="choixjour12" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJour2" id="choixJour12" value="choixjour12" />
           <label for="choixJour12">Pass pour deux journées du 01/07 au 02/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJour2" id="choixJour23" value="choixjour23" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJour2" id="choixJour23" value="choixjour23" />
           <label for="choixJour23">Pass pour deux journées du 02/07 au 03/07</label>
         </div>
       </section>
@@ -61,15 +65,15 @@ if (isset($_SESSION['error_message0'])) {
 
       <section id="pass1jourDateReduit">
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour1reduit" value="choixJour1reduit" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJourReduit" id="choixJour1reduit" value="choixJour1reduit" />
           <label for="choixJour1reduit">Pass pour la journée du 01/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour2reduit" value="choixJour2reduit" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJourReduit" id="choixJour2reduit" value="choixJour2reduit" />
           <label for="choixJour2reduit">Pass pour la journée du 02/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour3reduit" value="choixJour3reduit" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJourReduit" id="choixJour3reduit" value="choixJour3reduit" />
           <label for="choixJour3reduit">Pass pour la journée du 03/07</label>
         </div>
       </section>
@@ -80,11 +84,11 @@ if (isset($_SESSION['error_message0'])) {
 
       <section id="pass2joursDateReduit">
         <div>
-          <input type="checkbox" name="choixJour2Reduit" id="choixJour12reduit" value="choixJour12reduit" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJour2Reduit" id="choixJour12reduit" value="choixJour12reduit" />
           <label for="choixJour12reduit">Pass pour deux journées du 01/07 au 02/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJour2Reduit" id="choixJour23reduit" value="choixJour23reduit" aria-required="true" onchange="toggleCheck(this) , toggleRadio(this)" />
+          <input type="radio" name="choixJour2Reduit" id="choixJour23reduit" value="choixJour23reduit" />
           <label for="choixJour23reduit">Pass pour deux journées du 02/07 au 03/07</label>
         </div>
       </section>
@@ -101,7 +105,7 @@ if (isset($_SESSION['error_message0'])) {
     </div>
 
   </fieldset>
-  <fieldset id="options">
+  <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'd-none' : ''; ?>" id="options">
     <h3>Réserver un emplacement de tente : </h3>
     <input type="checkbox" id="tenteNuit1" name="tenteNuit1" class="tenteNuit" value="tenteNuit1" onchange="cocherTente3nuits()">
     <label for="tenteNuit1">Pour la nuit du 01/07 (5€)</label><br>
@@ -138,7 +142,7 @@ if (isset($_SESSION['error_message0'])) {
       <p>*Dans la limite des stocks disponibles.</p>
     </section>
 
-    <h3>Profitez de descentes en luge d'été à tarifs avantageux !</h3>
+    <h3>Profitez de descentes en luge d'été à tarifs avantageux (5€ / luge) !</h3>
     <label for="NombreLugesEte">Nombre de descentes en luge d'été :</label>
     <input type="number" name="NombreLugesEte" id="NombreLugesEte" min="0" max="5">
     <div id="alertMessageEte" class="bg-danger text-white"></div>
@@ -174,14 +178,16 @@ if (isset($_SESSION['error_message0'])) {
       <input type="checkbox" class="me-2" name="RGPD" id="RGPD" enababled>
       <label for="RGPD">Veuillez accepter les RGPD </label>
     </div>
+    <div id="alertMessageRGPD" class="bg-danger text-white mb-3"></div>
     <div class="d-flex justify-content-between">
       <!-- <p class="btn btn-warning" id="btnPrecedent2">Précédent</p> -->
       <input class="btn btn-warning" id="btnPrecedent2" value="Précédent">
-      <input type="submit" name="soumission" class="btn btn-success" id="btnReserver" value="Réserver">
+      <input type="submit" name="soumission" class="btn btn-success" disabled id="btnReserver" value="Réserver" onclick="calculateTotalPrice()">
     </div>
   </fieldset>
 </form>
 
 <?php
 include_once __DIR__ . '/Includes/footer.php';
+
 ?>
