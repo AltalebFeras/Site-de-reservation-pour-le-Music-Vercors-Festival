@@ -1,13 +1,6 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
-// include_once __DIR__ . '/utilisateurView/reservationCalculation.php';
-// echo "Total Price: " . $totalPrice . "€";
-
-// Check if form is submitted
-
 ?>
-
-
 
 <div id="message">
     <?php

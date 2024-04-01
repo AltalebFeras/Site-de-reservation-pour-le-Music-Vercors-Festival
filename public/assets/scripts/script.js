@@ -447,3 +447,88 @@ form.addEventListener("submit", function (event) {
     rgpdCheckbox.focus();
   }
 });
+
+// la calculation total du prix
+
+function calculateTotalPrice() {
+  var numberOfReservations = parseInt(
+    document.getElementById("nombrePlaces").value
+  );
+
+  // Chosen Passes
+  var pass1jourPrice = 40;
+  var pass2joursPrice = 70;
+  var pass3joursPrice = 100;
+  var totalPassPrice = 0;
+
+  var tarifReduitChecked = document.getElementById("tarifReduit").checked;
+  var tarifReduitPass1jourPrice = 25;
+  var tarifReduitPass2joursPrice = 50;
+  var tarifReduitPass3joursPrice = 65;
+
+  if (tarifReduitChecked) {
+    if (document.getElementById("pass1jourreduit").checked)
+      totalPassPrice += tarifReduitPass1jourPrice;
+    if (document.getElementById("pass2joursreduit").checked)
+      totalPassPrice += tarifReduitPass2joursPrice;
+    if (document.getElementById("pass3joursreduit").checked)
+      totalPassPrice += tarifReduitPass3joursPrice;
+  } else {
+    if (document.getElementById("pass1jour").checked)
+      totalPassPrice += pass1jourPrice;
+    if (document.getElementById("pass2jours").checked)
+      totalPassPrice += pass2joursPrice;
+    if (document.getElementById("pass3jours").checked)
+      totalPassPrice += pass3joursPrice;
+  }
+
+  // Optional Extras
+  var tentPrice = 5;
+  var vanPrice = 5;
+  var tent3NuitsPrice = 12;
+  var van3NuitsPrice = 12;
+  var enfantsCasquePrice = 2;
+  var lugePrice = 5;
+  var totalExtrasPrice = 0;
+
+   // Check if all tenteNuit options are selected
+   var allTenteNuitsChecked = document.getElementById("tenteNuit1").checked && document.getElementById("tenteNuit2").checked && document.getElementById("tenteNuit3").checked;
+   if (allTenteNuitsChecked) {
+       totalExtrasPrice += tent3NuitsPrice;
+   } else {
+       // Check if any tenteNuit option is selected and calculate the total tent price accordingly
+       if (document.getElementById("tenteNuit1").checked) totalExtrasPrice += tentPrice;
+       if (document.getElementById("tenteNuit2").checked) totalExtrasPrice += tentPrice;
+       if (document.getElementById("tenteNuit3").checked) totalExtrasPrice += tentPrice;
+   }
+
+   // Check if all vanNuit options are selected
+   var allVanNuitsChecked = document.getElementById("vanNuit1").checked && document.getElementById("vanNuit2").checked && document.getElementById("vanNuit3").checked;
+   if (allVanNuitsChecked) {
+       totalExtrasPrice += van3NuitsPrice;
+   } else {
+       // Check if any vanNuit option is selected and calculate the total van price accordingly
+       if (document.getElementById("vanNuit1").checked) totalExtrasPrice += vanPrice;
+       if (document.getElementById("vanNuit2").checked) totalExtrasPrice += vanPrice;
+       if (document.getElementById("vanNuit3").checked) totalExtrasPrice += vanPrice;
+   }
+
+  if (document.getElementById("tente3Nuits").checked)
+    totalExtrasPrice += tent3NuitsPrice;
+  if (document.getElementById("van3Nuits").checked)
+    totalExtrasPrice += van3NuitsPrice;
+  if (document.getElementById("nombreCasquesEnfants").value !== "")
+    totalExtrasPrice +=
+      parseInt(document.getElementById("nombreCasquesEnfants").value) *
+      enfantsCasquePrice;
+  if (document.getElementById("NombreLugesEte").value !== "")
+    totalExtrasPrice +=
+      parseInt(document.getElementById("NombreLugesEte").value) * lugePrice;
+
+  // Total Calculation
+  var totalPrice = (totalPassPrice + totalExtrasPrice) * numberOfReservations;
+
+  // Display the result in a div
+  var resultDiv = document.getElementById("totalPriceResult");
+  resultDiv.innerHTML = "Total Price: " + totalPrice + "€";
+}

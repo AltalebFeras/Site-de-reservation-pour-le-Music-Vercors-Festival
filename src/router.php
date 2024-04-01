@@ -20,13 +20,11 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
-      // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
+      include_once __DIR__ . '/Views/utilisateurView/reservationCalculation.php';
 
-      if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Output the contents of $_POST
-        var_dump($_POST);
-      }
+      var_dump($_SERVER['REQUEST_METHOD'] = $_POST);
       die;
+
       $UtilisateurController->traitmentUtilisateur();
     } else {
       $HomeController->index();
