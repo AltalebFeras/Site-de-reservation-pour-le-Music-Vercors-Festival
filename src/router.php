@@ -21,6 +21,12 @@ switch ($route) {
     }
     if ($methode === 'POST') {
       // I HAVE TO ADD THE TREATMENT TO THE HOME CONTROLLER FOR THE USER 
+
+      if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Output the contents of $_POST
+        var_dump($_POST);
+      }
+      die;
       $UtilisateurController->traitmentUtilisateur();
     } else {
       $HomeController->index();
@@ -63,23 +69,23 @@ switch ($route) {
     $HomeController->quit();
     break;
 
-   case $routeComposee[0] == "dashboard":
+  case $routeComposee[0] == "dashboard":
     if (isset($_SESSION["connecté"])) {
-    
+
       switch ($route) {
         case $routeComposee[1] == "compte":
-           $UtilisateurController->afficherCompte();
-           if ($methode === "POST") {
+          $UtilisateurController->afficherCompte();
+          if ($methode === "POST") {
             $utilisateurID = $_SESSION['utilisateur'];
             $UtilisateurController->supprimerUtilisateur();
           }
-            break;
-          case $routeComposee[1] == "reservation":
-            $UtilisateurController->afficherReservation();
-           break;
-           default:
-           // show the dashboard by default
-            $UtilisateurController->showDashboard();
+          break;
+        case $routeComposee[1] == "reservation":
+          $UtilisateurController->afficherReservation();
+          break;
+        default:
+          // show the dashboard by default
+          $UtilisateurController->showDashboard();
           break;
       }
     } else {

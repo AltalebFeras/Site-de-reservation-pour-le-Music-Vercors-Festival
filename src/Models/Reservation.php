@@ -4,39 +4,102 @@ namespace src\Models;
 
 use src\Services\Hydratation;
 
-class Reservation {
-    private $ReservationId, $NombreReservations, $PrixTotal, $UtilisateurId;
+class Reservation
+{
+    private $reservationID;
+    private $nombre_Reservations;
+    private $prix_Total;
+    private $utilisateurID;
 
     use Hydratation;
 
 
-    public function getReservationId(): int {
-        return $this->ReservationId;
-    }
-    public function setReservationId(int $ReservationId): void{
-        $this->ReservationId = $ReservationId;
+
+    /**
+     * Get the value of reservationID
+     *
+     * @return  mixed
+     */
+    public function getReservationID()
+    {
+        return $this->reservationID;
     }
 
-    public function getNombreReservations(): int {
-        return $this->NombreReservations;
-    }
-    public function setNombreReservations(int $NombreReservations): void {
-        $this->NombreReservations = $NombreReservations;
+    /**
+     * Set the value of reservationID
+     *
+     * @param   mixed  $reservationID  
+     *
+     */
+    public function setReservationID($reservationID)
+    {
+        $this->reservationID = $reservationID;
+
     }
 
-    public function getPrixTotal(): int {
-        return $this->PrixTotal;
-    }
-    public function setPrixTotal(int $PrixTotal): void {
-        $this->PrixTotal = $PrixTotal;
+    /**
+     * Get the value of nombre_Reservations
+     *
+     * @return  mixed
+     */
+    public function getNombreReservations()
+    {
+        return $this->nombre_Reservations;
     }
 
-    public function getUtilisateurId(): int {
-        return $this->UtilisateurId;
+    /**
+     * Set the value of nombre_Reservations
+     *
+     * @param   mixed  $nombre_Reservations  
+     *
+     */
+    public function setNombreReservations($nombre_Reservations)
+    {
+        $this->nombre_Reservations = $nombre_Reservations;
+
     }
 
-
-    public function setUtilisateurId(int $UtilisateurId): void {
-        $this->UtilisateurId = $UtilisateurId;
+    /**
+     * Get the value of prix_Total
+     *
+     * @return  mixed
+     */
+    public function getPrixTotal()
+    {
+        return $this->prix_Total;
     }
-}
+
+    /**
+     * Set the value of prix_Total
+     *
+     * @param   mixed  $prix_Total  
+     *
+     */
+    public function setPrixTotal($prix_Total)
+    {
+        $this->prix_Total = $prix_Total;
+
+    }
+
+    /**
+     * Get the value of utilisateurID
+     *
+     * @return  mixed
+     */
+    public function getUtilisateurID()
+    {
+        return $this->utilisateurID;
+    }
+
+    /**
+     * Set the value of utilisateurID
+     *
+     * @param   mixed  $utilisateurID  
+     *
+     */
+    public function setUtilisateurID($utilisateurID)
+    {
+        $this->utilisateurID = $utilisateurID;
+
+    }
+   }

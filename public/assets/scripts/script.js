@@ -198,12 +198,24 @@ function afficherMasquerTarifsReduits() {
     pass1jourCheckbox.checked = false;
     pass2joursCheckbox.checked = false;
     pass3joursCheckbox.checked = false;
+    // choixJour1.checked = false;
+    // choixJour2.checked = false;
+    // choixJour3.checked = false;
+    // choixJour12.checked = false;
+    // choixJour23.checked = false;
+
     tarifsReduitsSection.style.display = "block";
     tarifsNormauxSection.style.display = "none";
   } else {
     pass1jourReduitCheckbox.checked = false;
     pass2joursReduitCheckbox.checked = false;
     pass3joursReduitCheckbox.checked = false;
+    // choixJour1reduit.checked = false;
+    // choixJour2reduit.checked = false;
+    // choixJour3reduit.checked = false;
+    // choixJour12reduit.checked = false;
+    // choixJour23reduit.checked = false;
+
     tarifsReduitsSection.style.display = "none";
     tarifsNormauxSection.style.display = "block";
   }
@@ -421,17 +433,44 @@ document
   });
 
 function enableCheckbox() {
-  var checkbox = document.getElementById("RGPD");
-  if (checkbox.disabled) {
-    checkbox.disabled = false;
+  var RGPD = document.getElementById("RGPD");
+  if (RGPD.disabled) {
+    RGPD.disabled = false;
   }
 }
 
-setInterval(enableCheckbox, 1000);
+setInterval(enableCheckbox, 10);
+
+function enableCheckboxTarifReduit() {
+  var tarifReduit = document.getElementById("tarifReduit");
+  tarifReduit.disabled = false;
+}
+
+setInterval(enableCheckboxTarifReduit, 10);
+
+function enableCheckboxChoixJour() {
+  let pass1jour = document.getElementById("pass1jour");
+  let choixJour1 = document.getElementById("choixJour1");
+  let choixJour2 = document.getElementById("choixJour2");
+  let choixJour3 = document.getElementById("choixJour3");
+  if (!pass1jour.checked) {
+    choixJour1.checked = false;
+    choixJour2.checked = false;
+    choixJour3.checked = false;
+  }
+  let pass2jours = document.getElementById("pass1jour");
+  let choixJour12 = document.getElementById("choixJour1");
+  let choixJour23 = document.getElementById("choixJour2");
+  if (!pass2jours.checked) {
+    choixJour12.checked = false;
+    choixJour23.checked = false;
+  }
+}
+
+setInterval(enableCheckboxChoixJour, 10);
 
 let rgpdCheckbox = document.getElementById("RGPD");
 let reserverButton = document.getElementById("btnReserver");
-
 rgpdCheckbox.addEventListener("change", function () {
   if (rgpdCheckbox.checked) {
     reserverButton.disabled = false;
