@@ -346,11 +346,14 @@ function afficherMasquerCasques() {
 }
 
 // pour afficher at cacher la section venir avec des enfants.
+
 let venirAvecDesEnfants = document.getElementById("venirAvecDesEnfants");
 let casquesEnfants = document.getElementById("casquesEnfants");
 venirAvecDesEnfants.addEventListener("change", function () {
   if (venirAvecDesEnfants.value === "Non") {
+    nombreCasquesEnfants.value = "";
     casquesEnfants.style.display = "none";
+
     // alertOptionEnfant.style.display = "none";
   } else if (venirAvecDesEnfants.value === "Oui") {
     casquesEnfants.style.display = "block";
@@ -412,7 +415,7 @@ function enableCheckboxChoixJours2() {
     choixJour23.checked = false;
   }
   let pass2joursreduit = document.getElementById("pass2joursreduit");
-  if(!pass2joursreduit.checked){
+  if (!pass2joursreduit.checked) {
     choixJour12reduit.checked = false;
     choixJour23reduit.checked = false;
   }
