@@ -8,7 +8,8 @@ if (isset($_SESSION['error_message0'])) {
   unset($_SESSION['error_message0']);
 }
 ?>
-<form action="" id="inscription" method="post">
+<div id="totalPriceResult"></div>
+<form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
   <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
 
     <legend>Réservation</legend>
@@ -181,7 +182,7 @@ if (isset($_SESSION['error_message0'])) {
     <div class="d-flex justify-content-between">
       <!-- <p class="btn btn-warning" id="btnPrecedent2">Précédent</p> -->
       <input class="btn btn-warning" id="btnPrecedent2" value="Précédent">
-      <input type="submit" name="soumission" class="btn btn-success" disabled id="btnReserver" value="Réserver">
+      <input type="submit" name="soumission" class="btn btn-success" disabled id="btnReserver" value="Réserver" onclick="calculateTotalPrice()">
     </div>
   </fieldset>
 </form>
