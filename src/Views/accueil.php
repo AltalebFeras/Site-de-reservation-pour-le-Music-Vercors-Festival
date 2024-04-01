@@ -27,13 +27,13 @@ if (isset($_SESSION['error_message0'])) {
       <!-- Si case cochée, afficher le choix du jour -->
       <section id="pass1jourDate">
         <div>
-          <input type="radio" name="choixJour" id="choixJour1" value="choixJour1"   aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJour" id="choixJour1" value="choixJour1" />
           <label for="choixJour1">Pass pour la journée du 01/07</label>
         </div>
-        <div> <input type="radio" name="choixJour" id="choixJour2" value="choixJour2"   aria-required="true" onchange="toggleCheck(this) " />
+        <div> <input type="radio" name="choixJour" id="choixJour2" value="choixJour2" />
           <label for="choixJour2">Pass pour la journée du 02/07</label>
         </div>
-        <div> <input type="radio" name="choixJour" id="choixJour3" value="choixJour3"   aria-required="true" onchange="toggleCheck(this) " />
+        <div> <input type="radio" name="choixJour" id="choixJour3" value="choixJour3" />
           <label for="choixJour3">Pass pour la journée du 03/07</label>
         </div>
       </section>
@@ -44,11 +44,11 @@ if (isset($_SESSION['error_message0'])) {
       <!-- Si case cochée, afficher le choix des jours -->
       <section id="pass2joursDate">
         <div>
-          <input type="radio" name="choixJour2" id="choixJour12" value="choixjour12"   aria-required="true" onchange="toggleCheck(this)" />
+          <input type="radio" name="choixJour2" id="choixJour12" value="choixjour12" />
           <label for="choixJour12">Pass pour deux journées du 01/07 au 02/07</label>
         </div>
         <div>
-          <input type="radio" name="choixJour2" id="choixJour23" value="choixjour23"   aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJour2" id="choixJour23" value="choixjour23" />
           <label for="choixJour23">Pass pour deux journées du 02/07 au 03/07</label>
         </div>
       </section>
@@ -64,15 +64,15 @@ if (isset($_SESSION['error_message0'])) {
 
       <section id="pass1jourDateReduit">
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour1reduit" value="choixJour1reduit" aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJourReduit" id="choixJour1reduit" value="choixJour1reduit" />
           <label for="choixJour1reduit">Pass pour la journée du 01/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour2reduit" value="choixJour2reduit" aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJourReduit" id="choixJour2reduit" value="choixJour2reduit" />
           <label for="choixJour2reduit">Pass pour la journée du 02/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJourReduit" id="choixJour3reduit" value="choixJour3reduit" aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJourReduit" id="choixJour3reduit" value="choixJour3reduit" />
           <label for="choixJour3reduit">Pass pour la journée du 03/07</label>
         </div>
       </section>
@@ -83,11 +83,11 @@ if (isset($_SESSION['error_message0'])) {
 
       <section id="pass2joursDateReduit">
         <div>
-          <input type="checkbox" name="choixJour2Reduit" id="choixJour12reduit" value="choixJour12reduit" aria-required="true" onchange="toggleCheck(this)" />
+          <input type="radio" name="choixJour2Reduit" id="choixJour12reduit" value="choixJour12reduit" />
           <label for="choixJour12reduit">Pass pour deux journées du 01/07 au 02/07</label>
         </div>
         <div>
-          <input type="checkbox" name="choixJour2Reduit" id="choixJour23reduit" value="choixJour23reduit" aria-required="true" onchange="toggleCheck(this) " />
+          <input type="radio" name="choixJour2Reduit" id="choixJour23reduit" value="choixJour23reduit" />
           <label for="choixJour23reduit">Pass pour deux journées du 02/07 au 03/07</label>
         </div>
       </section>
