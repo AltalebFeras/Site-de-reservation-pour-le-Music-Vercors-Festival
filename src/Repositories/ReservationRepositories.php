@@ -16,48 +16,43 @@ class ReservationRepository {
 
     require_once __DIR__ . '/../../config.php';
   }
-  public function traitementReservation()
-  {
-      if (
-          empty($_POST) ||
-          !isset($_POST['reservation']) ||
-          !isset($_POST['nombreReservation']) ||
-          !isset($_POST['prixTotal']) ||
-          !isset($_POST['utilisateur'])
-      ) {
-          echo "Formulaire soumis incomplet";
-          return; // Ajout d'un retour pour éviter l'exécution du reste du code
-      }
+ 
+  // public function traitementReservation()
+  // {
+  //     if (
+  //         empty($_POST) ||
+  //         !isset($_POST['reservation']) ||
+  //         !isset($_POST['nombreReservation']) ||
+  //         !isset($_POST['prixTotal']) ||
+  //         !isset($_POST['utilisateur'])
+  //     ) {
+  //         echo "Formulaire soumis incomplet";
+  //         return;
+  //     }
 
-      // Utilisation de noms de variables distincts pour les données du formulaire et l'instance de la classe Reservation
-      $reservationData = htmlspecialchars($_POST['reservation']);
-      $nombreReservation = htmlspecialchars($_POST['nombreReservation']);
-      $prixTotal = htmlspecialchars($_POST['prixTotal']);
-      $utilisateur = htmlspecialchars($_POST['utilisateur']);
+  //     $reservationData = htmlspecialchars($_POST['reservation']);
+  //     $nombreReservation = htmlspecialchars($_POST['nombreReservation']);
+  //     $prixTotal = htmlspecialchars($_POST['prixTotal']);
+  //     $utilisateur = htmlspecialchars($_POST['utilisateur']);
 
-      // Création d'une instance de la classe Reservation
-      $reservation = new Reservation();
-      $reservation->setReservationId($reservationData); // Utilisation d'une méthode adéquate pour définir les données
-      $reservation->setNombreReservations($nombreReservation);
-      $reservation->setPrixTotal($prixTotal);
-      $reservation->setUtilisateurId($utilisateur);
+  //     $reservation = new Reservation();
+  //     $reservation->setReservationId($reservationData);
+  //     $reservation->setNombreReservations($nombreReservation);
+  //     $reservation->setPrixTotal($prixTotal);
+  //     $reservation->setUtilisateurId($utilisateur);
 
-      // Supposons que la logique pour sauvegarder la réservation soit implémentée ailleurs, sinon cela va générer une erreur
-      // $reservation->save();
+  //     $data = [
+  //         'success' => true,
+  //         'message' => 'Reservation created successfully',
+  //         'reservation' => $reservation
+  //     ];
 
-      // Cette partie peut être inutile si la sauvegarde de la réservation est gérée ailleurs
-      $data = [
-          'success' => true,
-          'message' => 'Reservation created successfully',
-          'reservation' => $reservation
-      ];
-
-      // Supposons que cette méthode envoie une réponse appropriée, ce qui nécessite la définition du trait Reponse
-      // $this->sendResponse($data);
-  }
+  //     // Supposons que cette méthode envoie une réponse appropriée
+  //     // $this->sendResponse($data);
+  // }
 
   public function getAllReservation() {
-    $sql = "SELECT * FROM " . PREFIXE . "reservation;";
+    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation;";
 
     $retour = $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Reservation::class);
 
@@ -65,36 +60,37 @@ class ReservationRepository {
   }
 
   public function getReservationById(int $id): Reservation|bool {
-    $sql = "SELECT * FROM " . PREFIXE . "Reservation WHERE reservationID = :id";
+    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :id";
 
     $statement = $this->DB->prepare($sql);
-    $statement->bindParam(':reservationID', $id);
+    $statement->bindParam(':id', $id);
     $statement->execute();
-    $statement->setFetchMode(PDO::FETCH_CLASS, Reservation::class);
-    $retour = $statement->fetch();
+    $retour = $statement->fetch(PDO::FETCH_CLASS, Reservation::class);
 
     return $retour;
-}
-
+  }
 
   public function CreateReservation(Reservation $Reservation): bool {
+
     $sql = "INSERT INTO " . PREFIXE . "reservation (nombre_reservations, prix_total, utilisateurID)
      VALUES (:nombreReservations, :prixTotal, :utilisateurID)";
+
+    $sql = "INSERT INTO " . PREFIXE . "mvf_reservation (nombre_reservations, prix_total, utilisateurID) VALUES (:nombre_reservations, :prix_total, :utilisateurID)";
+
 
     $statement = $this->DB->prepare($sql);
 
     $retour = $statement->execute([
-      ':nombreReservations' => $Reservation->getNombreReservations(),
-      ':prixTotal' => $Reservation->getPrixTotal(),
-      ':utilisateurID' => $Reservation->getUtilisateurID()
+      ':nombre_reservations' => $Reservation->getNombreReservations(),
+      ':prix_total' => $Reservation->getPrixTotal(),
+      ':utilisateur_id' => $Reservation->getUtilisateurId()
     ]);
 
     return $retour;
-}
-
+  }
 
   public function UpdateReservation(Reservation $Reservation): bool {
-    $sql = "UPDATE " . PREFIXE . "Reservation 
+    $sql = "UPDATE " . PREFIXE . "mvf_reservation 
             SET
               nombre_reservations = :nombre_reservations,
               prix_total = :prix_total
@@ -113,7 +109,7 @@ class ReservationRepository {
 
   public function deleteReservation(int $ID): bool {
     try {
-      $sql = "DELETE FROM " . PREFIXE . "reservation WHERE reservationID = :reservationID;";
+      $sql = "DELETE FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :reservationID;";
 
       $statement = $this->DB->prepare($sql);
 
