@@ -7,8 +7,8 @@ use src\Services\Hydratation;
 class Reservation
 {
     private $reservationID;
-    private $nombre_Reservations;
-    private $prix_Total;
+    private $nombreReservations;
+    private $prixTotal;
     private $utilisateurID;
 
     use Hydratation;
@@ -34,53 +34,37 @@ class Reservation
     public function setReservationID($reservationID)
     {
         $this->reservationID = $reservationID;
-
     }
 
     /**
-     * Get the value of nombre_Reservations
+     * Get the value of nombreReservation
      *
      * @return  mixed
      */
-    public function getNombreReservations()
-    {
-        return $this->nombre_Reservations;
-    }
+   
 
     /**
-     * Set the value of nombre_Reservations
-     *
-     * @param   mixed  $nombre_Reservations  
-     *
-     */
-    public function setNombreReservations($nombre_Reservations)
-    {
-        $this->nombre_Reservations = $nombre_Reservations;
-
-    }
-
-    /**
-     * Get the value of prix_Total
+     * Get the value of prixTotal
      *
      * @return  mixed
      */
     public function getPrixTotal()
     {
-        return $this->prix_Total;
+        return $this->prixTotal;
     }
 
     /**
-     * Set the value of prix_Total
+     * Set the value of prixTotal
      *
-     * @param   mixed  $prix_Total  
+     * @param   mixed  $prixTotal  
      *
      */
-    public function setPrixTotal($prix_Total)
+    public function setPrixTotal($prixTotal)
     {
-        $this->prix_Total = $prix_Total;
-
-
+        $this->prixTotal = $prixTotal;
+        // return $this->prixTotal =$totalPrice;
     }
+
 
     /**
      * Get the value of utilisateurID
@@ -101,6 +85,28 @@ class Reservation
     public function setUtilisateurID($utilisateurID)
     {
         $this->utilisateurID = $utilisateurID;
+        // return  $this->utilisateurID = $_SESSION['$utilisateur'];
+    }
+
+    /**
+     * Get the value of nombreReservations
+     *
+     * @return  mixed
+     */
+    public function getNombreReservations()
+    {
+        return $this->nombreReservations;
+    }
+
+    /**
+     * Set the value of nombreReservations
+     *
+     * @param   mixed  $nombreReservations  
+     *
+     */
+    public function setNombreReservations($nombreReservations)
+    {
+        $this->nombreReservations = $nombreReservations;
 
     }
-   }
+}

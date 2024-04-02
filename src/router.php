@@ -2,10 +2,12 @@
 
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
+use src\Controllers\ReservationController;
 use src\Services\Routing;
 
 $HomeController = new HomeController;
 $UtilisateurController = new UtilisateurController;
+$ReservationController = new ReservationController;
 // $FilmController = new FilmController;
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -20,12 +22,10 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
-      include_once __DIR__ . '/Views/utilisateurView/reservationCalculation.php';
-
-      var_dump($_SERVER['REQUEST_METHOD'] = $_POST);
-      die;
-
+      $ReservationController->stockerLaReservation();
       $UtilisateurController->traitmentUtilisateur();
+      $ReservationController->stockerLaReservation();
+
     } else {
       $HomeController->index();
     }
