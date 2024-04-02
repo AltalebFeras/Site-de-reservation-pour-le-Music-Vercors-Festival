@@ -3,11 +3,13 @@
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
 use src\Controllers\ReservationController;
+use src\Controllers\PassController;
 use src\Services\Routing;
 
 $HomeController = new HomeController;
 $UtilisateurController = new UtilisateurController;
 $ReservationController = new ReservationController;
+$PassController = new PassController;
 // $FilmController = new FilmController;
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -61,6 +63,7 @@ switch ($route) {
 
     if ($methode === 'POST') {
       $ReservationController->stockerLaReservation();
+      $PassController->stockerLePass();
     }
     break;
 
