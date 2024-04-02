@@ -24,8 +24,10 @@ switch ($route) {
     if ($methode === 'POST') {
       $ReservationController->stockerLaReservation();
       $UtilisateurController->traitmentUtilisateur();
-      $ReservationController->stockerLaReservation();
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
     } else {
       $HomeController->index();
     }

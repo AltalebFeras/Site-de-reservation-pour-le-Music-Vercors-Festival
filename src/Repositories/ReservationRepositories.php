@@ -40,26 +40,7 @@ class ReservationRepositories
   }
 
 
-  public function getAllReservation()
-  {
-    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation;";
-
-    $retour = $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Reservation::class);
-
-    return $retour;
-  }
-
-  public function getReservationById(int $id): Reservation|bool
-  {
-    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :id";
-
-    $statement = $this->DB->prepare($sql);
-    $statement->bindParam(':id', $id);
-    $statement->execute();
-    $retour = $statement->fetch(PDO::FETCH_CLASS, Reservation::class);
-
-    return $retour;
-  }
+ 
 
   public function createReservation(Reservation $Reservation): Reservation
   {
@@ -113,6 +94,27 @@ class ReservationRepositories
     }
   }
 
+
+  public function getAllReservation()
+  {
+    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation;";
+
+    $retour = $this->DB->query($sql)->fetchAll(PDO::FETCH_CLASS, Reservation::class);
+
+    return $retour;
+  }
+
+  public function getReservationById(int $id): Reservation|bool
+  {
+    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :id";
+
+    $statement = $this->DB->prepare($sql);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+    $retour = $statement->fetch(PDO::FETCH_CLASS, Reservation::class);
+
+    return $retour;
+  }
   public function calculation()
   {
     $numberOfReservations = intval($_POST["nombreReservations"]);
