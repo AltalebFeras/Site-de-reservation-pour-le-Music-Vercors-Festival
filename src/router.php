@@ -73,21 +73,26 @@ switch ($route) {
 
       switch ($route) {
         case $routeComposee[1] == "compte":
-          $UtilisateurController->afficherCompte();
           if ($methode === "POST") {
-            $utilisateurID = $_SESSION['utilisateur'];
             $UtilisateurController->supprimerUtilisateur();
+            // $utilisateurID = $_SESSION['utilisateur'];
           }
+            if (isset($_SESSION["connecté"])) {
+              $UtilisateurController->afficherCompte();
+            }
           break;
         case $routeComposee[1] == "reservation":
           $UtilisateurController->afficherReservation();
           break;
         case $routeComposee[1] == 'deconnexion':
           $HomeController->quit();
+          
           break;
         default:
-          // show the dashboard by default
-          $UtilisateurController->showDashboard();
+          if (isset($_SESSION["connecté"])) {
+
+            $UtilisateurController->showDashboard();
+          }
           break;
       }
     } else {
