@@ -1,5 +1,5 @@
 <?php
-$numberOfReservations = intval($_POST["nombrePlaces"]);
+$numberOfReservations = intval($_POST["nombreReservations"]);
 
 //   Chosen Passes
 $pass1jourPrice = 40;

@@ -2,10 +2,12 @@
 
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
+use src\Controllers\ReservationController;
 use src\Services\Routing;
 
 $HomeController = new HomeController;
 $UtilisateurController = new UtilisateurController;
+$ReservationController = new ReservationController;
 // $FilmController = new FilmController;
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -20,8 +22,10 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
+      $ReservationController->stockerLaReservation();
       $UtilisateurController->traitmentUtilisateur();
-      
+      $ReservationController->stockerLaReservation();
+
     } else {
       $HomeController->index();
     }

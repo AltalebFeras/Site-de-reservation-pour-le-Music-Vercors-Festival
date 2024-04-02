@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
+var_dump($_SESSION['utilisateur']);
 
 // echo "From dashboard this echo => role is" . " " . $_SESSION['role'];
 // echo "<br>";

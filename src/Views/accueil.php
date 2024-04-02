@@ -22,7 +22,7 @@ if (isset($_SESSION['error_message0'])) {
 
     <legend>Réservation</legend>
     <h3>Nombre de réservation(s) :</h3>
-    <input type="number" name="nombrePlaces" id="nombrePlaces" min="1" max="20" required>
+    <input type="number" name="nombreReservations" id="nombrePlaces" min="1" max="20" required>
     <div id="alertMessage" class="bg-danger text-white"></div>
     <h3>Réservation(s) en tarif réduit</h3>
     <input type="checkbox" name="tarifReduit" id="tarifReduit" onclick="afficherMasquerTarifsReduits()">
