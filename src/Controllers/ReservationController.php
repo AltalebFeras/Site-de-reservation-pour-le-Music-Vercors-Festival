@@ -1,4 +1,5 @@
 <?php
+
 namespace src\Controllers;
 
 use src\Models\Database;
@@ -23,8 +24,7 @@ class ReservationController
     public function stockerLaReservation()
     {
         $ReservationRepositories = new ReservationRepositories();
-        $this->ReservationRepositories->traitementReservation($ReservationRepositories);    
-        $this->render("connexion", ["erreur" => ""]);
+        $this->ReservationRepositories->traitementReservation($ReservationRepositories);
+        $this->render("dashboard", ["erreur" => ""]);
     }
-    
 }

@@ -41,8 +41,7 @@ class UtilisateurController
       $success = $this->UtilisateurRepositories->deleteThisUser($utilisateurID);
       if ($success) {
         session_destroy();
-        header('location: ' . HOME_URL);
-        exit;
+         exit;
       }
     }
   }
