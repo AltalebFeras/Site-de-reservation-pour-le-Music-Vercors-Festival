@@ -213,6 +213,7 @@ class UtilisateurRepositories
                 if (password_verify($motDePasse, $utilisateurData['motDePasse'])) {
                     // Password is correct, start session and redirect to treatment script
                     $_SESSION['utilisateur'] = $utilisateurData['utilisateurID'];
+                    
 
                     $_SESSION['connecté'] = true;
                     header('location: ' . HOME_URL . 'dashboard');

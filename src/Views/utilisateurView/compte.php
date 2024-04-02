@@ -9,7 +9,7 @@
     };
     ?>
 
-   <form action="#" method="post">
+   <form action="" method="post">
        <fieldset class="d-flex flex-column ">
            <legend>Vos Coordonnées</legend>
            <label for="nom">Votre nom :</label>

@@ -22,7 +22,6 @@ switch ($route) {
       die;
     }
     if ($methode === 'POST') {
-      $ReservationController->stockerLaReservation();
       $UtilisateurController->traitmentUtilisateur();
     } else {
       $HomeController->index();
@@ -59,6 +58,10 @@ switch ($route) {
 
   case HOME_URL . 'dashboard':
     $UtilisateurController->showDashboard();
+
+    if ($methode === 'POST') {
+      $ReservationController->stockerLaReservation();
+    }
     break;
 
   case HOME_URL . 'deconnexion':
@@ -78,6 +81,9 @@ switch ($route) {
           break;
         case $routeComposee[1] == "reservation":
           $UtilisateurController->afficherReservation();
+          break;
+        case $routeComposee[1] == 'deconnexion':
+          $HomeController->quit();
           break;
         default:
           // show the dashboard by default

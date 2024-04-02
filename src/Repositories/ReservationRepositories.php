@@ -60,6 +60,18 @@ class ReservationRepositories
 
     return $Reservation;
   }
+  public function insertID(Reservation $Reservation): Reservation
+  {
+      $sql = "INSERT INTO " . PREFIXE . "reservation (utilisateurID) VALUES (:utilisateurID)";
+      $statement = $this->DB->prepare($sql);
+      $statement->execute([
+          ':utilisateurID' => $_SESSION['utilisateur']
+      ]);
+      $Reservation->setUtilisateurID($this->DB->lastInsertId());  
+  
+      return $Reservation;
+  }
+  
 
   public function UpdateReservation(Reservation $Reservation): bool
   {

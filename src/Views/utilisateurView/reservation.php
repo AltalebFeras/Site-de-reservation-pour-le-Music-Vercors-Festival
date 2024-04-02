@@ -9,7 +9,7 @@ if (isset($_SESSION['connecté'])) {
 
 
 echo "hello from page reservation";
-include_once __DIR__ . '/reservationCalculation.php';
+// include_once __DIR__ . '/reservationCalculation.php';
 
 // <?php
 include_once __DIR__ . '/../Includes/footer.php';
