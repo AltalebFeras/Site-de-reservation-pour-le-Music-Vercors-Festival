@@ -41,7 +41,9 @@ class UtilisateurController
       $success = $this->UtilisateurRepositories->deleteThisUser($utilisateurID);
       if ($success) {
         session_destroy();
-         exit;
+        $this->render("accueil", ["erreur" => ""]);
+
+        exit;
       }
     }
   }

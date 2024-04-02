@@ -3,11 +3,13 @@
 use src\Controllers\HomeController;
 use src\Controllers\UtilisateurController;
 use src\Controllers\ReservationController;
+use src\Controllers\PassController;
 use src\Services\Routing;
 
 $HomeController = new HomeController;
 $UtilisateurController = new UtilisateurController;
 $ReservationController = new ReservationController;
+$PassController = new PassController;
 // $FilmController = new FilmController;
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -61,6 +63,7 @@ switch ($route) {
 
     if ($methode === 'POST') {
       $ReservationController->stockerLaReservation();
+      $PassController->stockerLePass();
     }
     break;
 
@@ -73,21 +76,26 @@ switch ($route) {
 
       switch ($route) {
         case $routeComposee[1] == "compte":
-          $UtilisateurController->afficherCompte();
           if ($methode === "POST") {
-            $utilisateurID = $_SESSION['utilisateur'];
             $UtilisateurController->supprimerUtilisateur();
+            // $utilisateurID = $_SESSION['utilisateur'];
           }
+            if (isset($_SESSION["connecté"])) {
+              $UtilisateurController->afficherCompte();
+            }
           break;
         case $routeComposee[1] == "reservation":
           $UtilisateurController->afficherReservation();
           break;
         case $routeComposee[1] == 'deconnexion':
           $HomeController->quit();
+          
           break;
         default:
-          // show the dashboard by default
-          $UtilisateurController->showDashboard();
+          if (isset($_SESSION["connecté"])) {
+
+            $UtilisateurController->showDashboard();
+          }
           break;
       }
     } else {
