@@ -13,7 +13,7 @@ if ($_SESSION['role'] == 'user') {
           <a href="dashboard/compte" class="btn btn-info">Mon compte</a>
         </div>';
 }
- 
+
 ?>
 
 <form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
@@ -25,7 +25,7 @@ if ($_SESSION['role'] == 'user') {
   </div>
 
 
- <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
+  <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
 
     <legend>Réservation</legend>
     <h3>Nombre de réservation(s) :</h3>
@@ -120,7 +120,7 @@ if ($_SESSION['role'] == 'user') {
     </div>
 
   </fieldset>
-  <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'd-none' : ''; ?>" id="options">
+  <fieldset id="options">
     <h3>Réserver un emplacement de tente : </h3>
     <input type="checkbox" id="tenteNuit1" name="tenteNuit1" class="tenteNuit" value="tenteNuit1" onchange="cocherTente3nuits()">
     <label for="tenteNuit1">Pour la nuit du 01/07 (5€)</label><br>
@@ -142,11 +142,12 @@ if ($_SESSION['role'] == 'user') {
     <label for="van3Nuits">Pour les 3 nuits (12€)</label>
 
     <h3>Venez-vous avec des enfants ?</h3>
-    <select name="enfants" id="venirAvecDesEnfants">
-    
-      <option name="enfants" value="Non" id="enfantsNon" onchange="afficherMasquerCasques()">Non</option>
-      <option name="enfants" value="Oui" id="enfantsOui" onchange="afficherMasquerCasques()">Oui</option>
-    </select>
+    <div id="venirAvecDesEnfants">
+      <input type="radio" name="enfants" value="Non" id="enfantsNon" onchange="afficherMasquerCasques()" />
+      <label for="enfantsNon">Non</label>
+      <input type="radio" name="enfants" value="Oui" id="enfantsOui" onchange="afficherMasquerCasques()" />
+      <label for="enfantsOui">Oui</label>
+    </div>
     <!-- Si oui, afficher : -->
     <section id="casquesEnfants">
       <h4>Voulez-vous louer un casque antibruit pour enfants* (2€ / casque) ?</h4>
@@ -163,7 +164,7 @@ if ($_SESSION['role'] == 'user') {
 
     <div class="d-flex justify-content-between">
       <p class="btn btn-warning" id="btnPrecedent">Précédent</p>
-       <input type="submit" name="soumission" class="btn btn-success"   id="btnReserver" value="Réserver" onclick="calculateTotalPrice()">
+      <input type="submit" name="soumission" class="btn btn-success" id="btnReserver" value="Réserver" onclick="calculateTotalPrice()">
     </div>
   </fieldset>
 </form>
