@@ -472,8 +472,3 @@ function calculateTotalPrice() {
   var resultDiv = document.getElementById("totalPriceResult");
   resultDiv.innerHTML = "Total Price: " + totalPrice + "€";
 }
-document.getElementById("monCompteForm").addEventListener("submit", function(event) {
-  event.preventDefault();
-  location.reload();
-  location.reload();
-});
