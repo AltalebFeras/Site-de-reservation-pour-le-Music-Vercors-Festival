@@ -48,6 +48,12 @@ class PassRepositories
           ':nomPass' => $Pass->getNomPass(),
       ]);
     
+
+      $passID = $this->DB->lastInsertId();
+      $Pass->setPassID($passID);
+      $_SESSION['passID'] =$this->DB->lastInsertId();
+  
+
       return $Pass;
   }
   

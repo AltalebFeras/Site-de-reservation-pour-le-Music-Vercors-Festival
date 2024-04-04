@@ -21,7 +21,7 @@ class ReservationRepositories
 
 
 
-  public function traitementReservation(ReservationRepositories $ReservationRepositories)
+  public function   traitementReservation(ReservationRepositories $ReservationRepositories)
   {
     if (empty($_POST) || !isset($_POST['nombreReservations'])) {
       $nombreReservations = htmlspecialchars($_POST['nombreReservations']);
@@ -61,6 +61,7 @@ class ReservationRepositories
 
     $reservationID = $this->DB->lastInsertId();
     $Reservation->setReservationID($reservationID);
+    $_SESSION['reservationID'] =$this->DB->lastInsertId();
 
     return $Reservation;
   }
@@ -75,6 +76,7 @@ class ReservationRepositories
 
     return $Reservation;
   }
+  
 
 
   public function UpdateReservation(Reservation $Reservation): bool
