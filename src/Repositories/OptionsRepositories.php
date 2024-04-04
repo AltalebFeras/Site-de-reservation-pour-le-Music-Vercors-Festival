@@ -23,7 +23,7 @@ class OptionsRepositories
         $options = [];
     
         // Check if 'enfants' is set to "Oui" and handle children's helmets
-        if (isset($_POST['enfants']) && $_POST['enfants'] === "Oui" && isset($_POST['nombreCasquesEnfants'])) {
+        if (isset($_POST['enfants']) && $_POST['enfants'] === "Oui" && isset($_POST['nombreCasquesEnfants']) && $_POST['nombreCasquesEnfants']>0) {
             $nomOption = "Casque Enfant";
             $stockOption = (int)$_POST['nombreCasquesEnfants'];
             $prixOption = $this->getPrixOption('nombreCasquesEnfants');
@@ -31,7 +31,7 @@ class OptionsRepositories
         }
     
         // Check if 'NombreLugesEte' is set and handle summer sledges
-        if (isset($_POST['NombreLugesEte'])) {
+        if (isset($_POST['NombreLugesEte']) && $_POST['NombreLugesEte'] > 0 ) {
             $nomOption = "Luge";
             $stockOption = (int)$_POST['NombreLugesEte'];
             $prixOption = $this->getPrixOption('NombreLugesEte');

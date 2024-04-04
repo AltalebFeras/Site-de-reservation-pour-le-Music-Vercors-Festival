@@ -19,7 +19,7 @@ $utilisateurRepositories = new UtilisateurRepositories();
     } elseif ($_SESSION['role'] == 'user') {
       $utilisateurID = $_SESSION['utilisateur'];
       // echo ("utilisateurID =$utilisateurID");
-      $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
+      $prenom = $utilisateurRepositories->getCoordonee($utilisateurID);
       echo "<h2>Bonjour $prenom!</h2>";
       // $all = $utilisateurRepositories->getAllUtilisateurDetails($utilisateurID);
       // var_dump($all);

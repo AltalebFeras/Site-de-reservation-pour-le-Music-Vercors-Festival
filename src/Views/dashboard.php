@@ -10,7 +10,6 @@ if ($_SESSION['role'] == 'user') {
 
 
 ?>
-
     <div>
         <p> " Cliquez sur le
             <a class="btn btn-warning my-3" href="createReservation">lien</a>
