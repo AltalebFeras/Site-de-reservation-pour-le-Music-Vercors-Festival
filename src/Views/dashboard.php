@@ -1,6 +1,7 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
+
 // var_dump($_SESSION['utilisateur']);
 
 if ($_SESSION['role'] == 'user') {
@@ -13,12 +14,14 @@ if ($_SESSION['role'] == 'user') {
 ?>
 
 
+
     <div>
         <p> " Cliquez sur le
             <a class="btn btn-warning my-3" href="createReservation">lien</a>
             pour creér une réservation."
         </p>
     </div>
+
 
 <?php } ?>
 <?php
