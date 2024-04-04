@@ -73,7 +73,7 @@ class UtilisateurController
   {
     if (isset($_SESSION["connecté"])) {
 
-      $this->render("utilisateurView/createReservation", ["erreur" => ""]);
+      $this->render("createReservation", ["erreur" => ""]);
     }
   }
 }
