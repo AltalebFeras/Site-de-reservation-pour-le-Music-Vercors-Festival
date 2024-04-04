@@ -32,8 +32,7 @@ class UtilisateurController
     $this->UtilisateurRepositories->seConnecter();
     $this->render("dashboard", ["erreur" => ""]);
   }
-  // UtilisateurController.php
-
+ 
   public function supprimerUtilisateur()
   {
     if (isset($_SESSION['utilisateur'])) {
@@ -68,6 +67,13 @@ class UtilisateurController
     if (isset($_SESSION["connecté"])) {
 
       $this->render("utilisateurView/reservation", ["erreur" => ""]);
+    }
+  }
+  public function createReservation()
+  {
+    if (isset($_SESSION["connecté"])) {
+
+      $this->render("utilisateurView/createReservation", ["erreur" => ""]);
     }
   }
 }
