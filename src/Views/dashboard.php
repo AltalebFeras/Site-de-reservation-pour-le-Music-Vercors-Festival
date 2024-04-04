@@ -2,8 +2,6 @@
 include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
 
-// var_dump($_SESSION['utilisateur']);
-
 if ($_SESSION['role'] == 'user') {
     echo '<div>
             <a href="dashboard/reservation" class="btn btn-info">Ma réservation</a>
@@ -12,8 +10,6 @@ if ($_SESSION['role'] == 'user') {
 
 
 ?>
-
-
 
     <div>
         <p> " Cliquez sur le
