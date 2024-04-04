@@ -16,9 +16,7 @@ $ReservationController = new ReservationController;
 $PassController = new PassController;
 $NuiteeController = new NuiteeController;
 $OptionsController = new OptionsController;
-
 $Reservation_passController = new Reservation_passController;
-// $FilmController = new FilmController;
 
 
 $route = $_SERVER['REDIRECT_URL'];
@@ -30,7 +28,7 @@ switch ($route) {
   case HOME_URL:
     if (isset($_SESSION['connecté'])) {
       header('location: ' . HOME_URL . 'dashboard');
-      // die;
+      die;
     }
     if ($methode === 'POST') {
       $UtilisateurController->traitmentUtilisateur();
@@ -61,22 +59,28 @@ switch ($route) {
     } else {
       if ($methode === 'POST') {
         $UtilisateurController->connexionUtilisateur();
+        die;
       } else {
         $HomeController->indexConnexion();
       }
     }
     break;
 
-    case HOME_URL ."createReservation":
-      $UtilisateurController->createReservation();
+    case HOME_URL . "createReservation":
       if ($methode === 'POST') {
         $ReservationController->stockerLaReservation();
         $PassController->stockerLePass();
         $NuiteeController->stockerLaNuitee();
         $OptionsController->stockerLesOptions();
-        $Reservation_passController->stockerLeJour();      
+        $Reservation_passController->stockerLeJour();  
+        // Redirect after handling POST
+        header("Location: " . HOME_URL . "dashboard");
+        exit;
+      } else {
+        $UtilisateurController->createReservation();
       }
       break;
+    
 
   case HOME_URL . 'dashboard':
     $UtilisateurController->showDashboard();
