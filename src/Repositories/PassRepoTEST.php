@@ -78,11 +78,40 @@ class PassRepositories
         switch ($choixJour) {
             case 'choixJour1':
                 return '01/07/2024';
+
             case 'choixJour2':
                 return '02/07/2024';
+
             case 'choixJour3':
                 return '03/07/2024';
-          
+
+            case 'choixJour1reduit':
+                return '01/07/2024';
+
+            case 'choixJour2reduit':
+                return '02/07/2024';
+
+            case 'choixJour3reduit':
+                return '03/07/2024';
+
+            case 'choixJour12':
+                return '01/07/2024' . '/' . '02/07/2024';
+
+            case 'choixJour23':
+                return '02/07/2024' . '/' . '03/07/2024';
+
+            case 'choixJour12reduit':
+                return '01/07/2024' . '/' . '02/07/2024';
+
+            case 'choixJour23reduit':
+                return '02/07/2024' . '/' . '03/07/2024';
+
+            case 'choixPass':
+                return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
+
+            case 'choixPassReduit':
+                return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
+                
             default:
                 return ''; // Default price if pass type not recognized
         }

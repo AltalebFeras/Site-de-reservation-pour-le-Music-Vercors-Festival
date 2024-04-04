@@ -68,24 +68,4 @@ class OptionsRepositories
                 return 0;
         }
     }
-
-    public function UpdateThisOptions(Options $Options): Options
-    {
-        $sql = "UPDATE " . PREFIXE . "options SET nomOption = :nomOption, prixOption = :prixOption WHERE optionsID = :optionsID";
-        $statement = $this->DB->prepare($sql);
-        $statement->bindParam(':optionsID', $Options->optionsID);
-        $statement->bindParam(':nomOption', $Options->nomOption);
-        $statement->bindParam(':prixOption', $Options->prixOption);
-        $statement->execute();
-        return $Options;
-    }
-
-    public function DeleteThisOptions(Options $Options): Options
-    {
-        $sql = "DELETE FROM " . PREFIXE . "options WHERE optionsID = :optionsID";
-        $statement = $this->DB->prepare($sql);
-        $statement->bindParam(':optionsID', $Options->optionsID);
-        $statement->execute();
-        return $Options;
-    }
 }

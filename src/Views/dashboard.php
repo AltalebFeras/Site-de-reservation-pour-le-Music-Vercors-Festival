@@ -1,7 +1,7 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
-var_dump($_SESSION['utilisateur']);
+var_dump($_SESSION['role']);
 
 // echo "From dashboard this echo => role is" . " " . $_SESSION['role'];
 // echo "<br>";
@@ -12,7 +12,6 @@ if ($_SESSION['role'] == 'user') {
           <a href="dashboard/reservation" class="btn btn-info">Ma réservation</a>
           <a href="dashboard/compte" class="btn btn-info">Mon compte</a>
         </div>';
-}
 
 ?>
 
@@ -111,6 +110,7 @@ if ($_SESSION['role'] == 'user') {
       <input type="radio" name="choixPassReduit" id="pass3joursreduit" value="pass3joursreduit">
       <label for="pass3joursreduit">Pass 3 jours : 65€</label>
     </section>
+    
 
     <!-- FACULTATIF : ajouter un pass groupe (5 adultes : 150€ / jour) uniquement pass 1 jour -->
     <div>
@@ -170,6 +170,7 @@ if ($_SESSION['role'] == 'user') {
 </form>
 
 
+<?php } ?>
 
 <?php
 include_once __DIR__ . '/Includes/footer.php';
