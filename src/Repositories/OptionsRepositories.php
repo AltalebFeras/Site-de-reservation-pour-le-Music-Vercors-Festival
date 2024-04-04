@@ -55,6 +55,7 @@ class OptionsRepositories
             ':stockOption' => $options->getStockOption(),
             ':prixOption' => $options->getPrixOption(),
         ]);
+        
     }
 
     private function getPrixOption($option)

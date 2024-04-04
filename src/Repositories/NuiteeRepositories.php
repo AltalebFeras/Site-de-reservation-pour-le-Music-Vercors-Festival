@@ -63,6 +63,10 @@ class NuiteeRepositories
             ':prixNuitee' => $Nuitee->getPrixNuitee(),
         ]);
 
+        $nuiteeID = $this->DB->lastInsertId();
+        $Nuitee->setNuiteeID($nuiteeID);
+        $_SESSION['nuiteeID'] =$this->DB->lastInsertId();
+    
         return $Nuitee;
     }
 
