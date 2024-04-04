@@ -1,5 +1,7 @@
 <?php
 
+use src\Repositories\ReservationRepositories;
+
 include_once __DIR__ . '/../Includes/header.php';
 
 include_once __DIR__ . '/../Includes/colonne.php';
@@ -8,7 +10,12 @@ if (isset($_SESSION['connecté'])) {
 };
 
 
-echo "hello from page reservation";
+// Assuming $ReservationRepositories is instantiated somewhere
+$ReservationRepositories = new ReservationRepositories();
+
+
+$ReservationRepositories->displayAllReservations();
+
 
 // <?php
 include_once __DIR__ . '/../Includes/footer.php';

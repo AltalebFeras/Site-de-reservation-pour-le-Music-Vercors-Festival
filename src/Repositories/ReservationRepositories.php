@@ -122,6 +122,79 @@ class ReservationRepositories
     return $retour;
   }
 
+  public function displayAllReservations()
+  {
+      $sql = "SELECT * FROM " . PREFIXE . "reservation;";
+      $stmt = $this->DB->prepare($sql);
+      $stmt->execute();
+      $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+      if ($reservations) {
+          echo "<table border='1'>
+              <tr>
+                  <th>Reservation ID</th>
+                  <th>Number of Reservations</th>
+                  <th>Total Price</th>
+                  <th>User ID</th>
+                  <th>User Reservations</th>
+                  <th>User Passes</th>
+                  <th>User Options</th>
+                  <th>User Nights</th>
+              </tr>";
+  
+          foreach ($reservations as $reservation) {
+              // Retrieve user-specific data
+              $userID = $reservation['utilisateurID'];
+              $userReservations = $this->getUserReservations($userID);
+              $userPasses = $this->getUserPasses($userID);
+              // $userOptions = $this->getUserOptions($userID);
+              // $userNights = $this->getUserNights($userID);
+  
+              echo "<tr>
+                  <td>{$reservation['reservationID']}</td>
+                  <td>{$reservation['nombreReservations']}</td>
+                  <td>{$reservation['prixTotal']}</td>
+                  <td>{$reservation['utilisateurID']}</td>
+                  <td>$userReservations</td>
+                  <td>$userPasses</td>
+                  <td>$userOptions</td>
+                  <td>$userNights</td>
+              </tr>";
+          }
+  
+          echo "</table>";
+      } else {
+          echo "No reservations found.";
+      }
+  }
+  
+  // Function to retrieve user reservations
+  // Function to retrieve user reservations
+private function getUserReservations($userID)
+{
+    // Execute SQL query to retrieve user reservations
+    $sql = "SELECT * FROM mvf_reservation WHERE utilisateurID = :userID";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    $userReservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Format the data or generate HTML representation
+    $html = "<ul>";
+    foreach ($userReservations as $reservation) {
+        $html .= "<li>Reservation ID: {$reservation['reservationID']}</li>";
+        $html .= "<li>Number of Reservations: {$reservation['nombreReservations']}</li>";
+        $html .= "<li>Total Price: {$reservation['prixTotal']}</li>";
+    }
+    $html .= "</ul>";
+
+    // Return the HTML representation of user reservations
+    return $html;
+}
+
+  
+  // Functions to retrieve user passes, options, and nights follow a similar structure as getUserReservations.
+  
   public function getReservationById(int $id): Reservation|bool
   {
     $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :id";
