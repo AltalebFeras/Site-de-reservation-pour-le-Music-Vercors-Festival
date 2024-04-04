@@ -24,7 +24,7 @@ switch ($route) {
   case HOME_URL:
     if (isset($_SESSION['connecté'])) {
       header('location: ' . HOME_URL . 'dashboard');
-      die;
+      // die;
     }
     if ($methode === 'POST') {
       $UtilisateurController->traitmentUtilisateur();
@@ -61,15 +61,20 @@ switch ($route) {
     }
     break;
 
+    case HOME_URL ."createReservation":
+      $UtilisateurController->createReservation();
+      if ($methode === 'POST') {
+        $ReservationController->stockerLaReservation();
+        $PassController->stockerLePass();
+        $NuiteeController->stockerLaNuitee();
+        $OptionsController->stockerLesOptions();        
+      }
+      break;
+
   case HOME_URL . 'dashboard':
     $UtilisateurController->showDashboard();
 
-    if ($methode === 'POST') {
-      $ReservationController->stockerLaReservation();
-      $PassController->stockerLePass();
-      $NuiteeController->stockerLaNuitee();
-      $OptionsController->stockerLesOptions();
-    }
+
     break;
 
   case HOME_URL . 'deconnexion':
@@ -85,16 +90,17 @@ switch ($route) {
             $UtilisateurController->supprimerUtilisateur();
             // $utilisateurID = $_SESSION['utilisateur'];
           }
-            if (isset($_SESSION["connecté"])) {
-              $UtilisateurController->afficherCompte();
-            }
+          if (isset($_SESSION["connecté"])) {
+            $UtilisateurController->afficherCompte();
+          }
           break;
         case $routeComposee[1] == "reservation":
           $UtilisateurController->afficherReservation();
           break;
+        
         case $routeComposee[1] == 'deconnexion':
           $HomeController->quit();
-          
+
           break;
         default:
           if (isset($_SESSION["connecté"])) {

@@ -37,10 +37,14 @@ class ReservationRepositories
 
     $reservation = new Reservation($data);
     $ReservationRepositories->createReservation($reservation);
+    $_SESSION['reservé'] = true;
+    $_SESSION['message'] = "Votre réservation est validée!";
+    
+
   }
 
 
- 
+
 
   public function createReservation(Reservation $Reservation): Reservation
   {
@@ -62,16 +66,16 @@ class ReservationRepositories
   }
   public function insertID(Reservation $Reservation): Reservation
   {
-      $sql = "INSERT INTO " . PREFIXE . "reservation (utilisateurID) VALUES (:utilisateurID)";
-      $statement = $this->DB->prepare($sql);
-      $statement->execute([
-          ':utilisateurID' => $_SESSION['utilisateur']
-      ]);
-      $Reservation->setUtilisateurID($this->DB->lastInsertId());  
-  
-      return $Reservation;
+    $sql = "INSERT INTO " . PREFIXE . "reservation (utilisateurID) VALUES (:utilisateurID)";
+    $statement = $this->DB->prepare($sql);
+    $statement->execute([
+      ':utilisateurID' => $_SESSION['utilisateur']
+    ]);
+    $Reservation->setUtilisateurID($this->DB->lastInsertId());
+
+    return $Reservation;
   }
-  
+
 
   public function UpdateReservation(Reservation $Reservation): bool
   {
@@ -168,8 +172,7 @@ class ReservationRepositories
     $lugePrice = 5;
     $totalExtrasPrice = 0;
 
-    // Check if any tenteNuit option is selected and calculate the total tent price accordingly
-    if (isset($_POST["tenteNuit1"]) || isset($_POST["tenteNuit2"]) || isset($_POST["tenteNuit3"])) {
+     if (isset($_POST["tenteNuit1"]) || isset($_POST["tenteNuit2"]) || isset($_POST["tenteNuit3"])) {
       $numberOfTenteNuits = 0;
       if (isset($_POST["tenteNuit1"])) $numberOfTenteNuits++;
       if (isset($_POST["tenteNuit2"])) $numberOfTenteNuits++;

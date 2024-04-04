@@ -16,18 +16,7 @@ class UtilisateurRepositories
         $this->DB = $database->getDB();
 
         require_once __DIR__ . '/../../config.php';
-    }
-
-    // public function getThisUtilisateurById($id): Utilisateur
-    // {
-    //   $sql = $this->concatenationRequete("WHERE " . PREFIXE . "utilisateur.ID = :id");
-
-    //   $statement = $this->DB->prepare($sql);
-    //   $statement->bindParam(':id', $id);
-    //   $statement->execute();
-    //   $statement->setFetchMode(PDO::FETCH_CLASS, Utilisateur::class);
-    //   return $statement->fetch();
-    // }
+    } 
 
     public function getAllUtilisateurs(): array
     {
@@ -94,8 +83,7 @@ class UtilisateurRepositories
             exit;
         }
 
-        // Sanitize and validate inputs
-        $nom = trim(htmlspecialchars($_POST['nom']));
+         $nom = trim(htmlspecialchars($_POST['nom']));
         $prenom = trim(htmlspecialchars($_POST['prenom']));
         $email = filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL);
         $motDePasse = $_POST['motDePasse'];
@@ -112,27 +100,23 @@ class UtilisateurRepositories
             exit;
         }
 
-        // Validate password strength
-        if (
+         if (
             strlen($motDePasse) < 8
-            // || !preg_match('/[A-Za-z]/', $motDePasse) || !preg_match('/\d/', $motDePasse) || !preg_match('/[^A-Za-z\d]/', $motDePasse)
-        ) {
+         ) {
             $_SESSION['error_message0'] = "Password must be at least 8 characters long and contain at least one letter, one number, and one special character.";
             header('location: ' . HOME_URL);
 
             exit;
         }
 
-        // Verify password confirmation
-        if ($motDePasse !== $motDePasseVerifier) {
+         if ($motDePasse !== $motDePasseVerifier) {
             $_SESSION['error_message0'] = "Passwords do not match. Please try again.";
             header('location: ' . HOME_URL);
 
             exit;
         }
 
-        // Check if email already exists
-        $utilisateurRepositories = new UtilisateurRepositories();
+         $utilisateurRepositories = new UtilisateurRepositories();
         $existingUtilisateur = $utilisateurRepositories->findByEmail($email);
         if ($existingUtilisateur) {
             $_SESSION['error_message0'] = "Email already exists.";
@@ -141,12 +125,10 @@ class UtilisateurRepositories
             exit;
         }
 
-        // Hash the password
-        $hashedmotDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);
+         $hashedmotDePasse = password_hash($motDePasse, PASSWORD_DEFAULT);
         $RGPDdate = new \DateTime();
 
-        // Create new user instance
-        $data = array(
+         $data = array(
 
             'nom' => $nom,
             'prenom' => $prenom,
@@ -160,10 +142,8 @@ class UtilisateurRepositories
 
         $newUtilisateur = new Utilisateur($data);
 
-        // Save user to the database
         $utilisateurRepositories->createUtilisateur($newUtilisateur);
 
-        // Set success message and redirect to sign-in page
         $_SESSION['success_message'] = "Votre inscription est validée!";
         $_SESSION['role'] = 'user';
         $_SESSION['utilisateur'] = $this->DB->lastInsertId();
@@ -197,26 +177,15 @@ class UtilisateurRepositories
 
             $row = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            // echo "hi";
-            // var_dump($_SESSION['utilisateur']);
-            // var_dump(  $row['utilisateurID']);
-            // echo "hi";
-            // die;
-
-            // Check if user exists
-            // Check if user exists
             if ($row) {
-                // Fetch the first row
-                $utilisateurData = $row[0];
+                 $utilisateurData = $row[0];
 
-                // Verify password
-                if (password_verify($motDePasse, $utilisateurData['motDePasse'])) {
-                    // Password is correct, start session and redirect to treatment script
-                    $_SESSION['utilisateur'] = $utilisateurData['utilisateurID'];
-                    
+                 if (password_verify($motDePasse, $utilisateurData['motDePasse'])) {
+                     $_SESSION['utilisateur'] = $utilisateurData['utilisateurID'];
+
 
                     $_SESSION['connecté'] = true;
-                    header('location: ' . HOME_URL . 'dashboard');
+                    header('location: ' . HOME_URL . 'dashboard/reservation');
                     exit;
                 } else {
                     $_SESSION['error_message1'] = "Invalid email or password. Please try again.";
@@ -243,7 +212,7 @@ class UtilisateurRepositories
 
         return $utilisateur ? $utilisateur : false;
     }
-   
+
     public function deleteThisUser($utilisateurID): bool
     {
         $sql = "DELETE FROM " . PREFIXE . "utilisateur WHERE utilisateurID = :id";
