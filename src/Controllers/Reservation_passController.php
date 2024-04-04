@@ -28,7 +28,7 @@ class Reservation_passController
       
         $this->Reservation_passRepositories = new Reservation_passRepositories;
         $reservation_passRepositories = new Reservation_passRepositories();
-        $reservation_passRepositories->x();
+        $reservation_passRepositories->traitementJour();
 
         $this->render("dashboard", ["erreur" => ""]);
     }
