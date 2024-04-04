@@ -106,10 +106,10 @@ class PassRepositories
             case 'choixJour23reduit':
                 return '02/07/2024' . '/' . '03/07/2024';
 
-            case 'choixPass':
+            case 'pass3jours':
                 return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
 
-            case 'choixPassReduit':
+            case 'pass3joursreduit':
                 return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
                 
             default:
