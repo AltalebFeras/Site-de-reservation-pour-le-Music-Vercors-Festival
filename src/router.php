@@ -62,6 +62,16 @@ switch ($route) {
     }
     break;
 
+    case HOME_URL ."createReservation":
+      $UtilisateurController->createReservation();
+      if ($methode === 'POST') {
+        $ReservationController->stockerLaReservation();
+        $PassController->stockerLePass();
+        $NuiteeController->stockerLaNuitee();
+        $OptionsController->stockerLesOptions();        
+      }
+      break;
+
   case HOME_URL . 'dashboard':
     $UtilisateurController->showDashboard();
 
@@ -88,17 +98,7 @@ switch ($route) {
         case $routeComposee[1] == "reservation":
           $UtilisateurController->afficherReservation();
           break;
-        case $routeComposee[1] == "createReservation":
-          $UtilisateurController->createReservation();
-          if ($methode === 'POST') {
-            $ReservationController->stockerLaReservation();
-            $PassController->stockerLePass();
-            $NuiteeController->stockerLaNuitee();
-            $OptionsController->stockerLesOptions();
-            
-            
-          }
-          break;
+        
         case $routeComposee[1] == 'deconnexion':
           $HomeController->quit();
 

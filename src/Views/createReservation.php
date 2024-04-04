@@ -1,6 +1,6 @@
 <?php
-include_once __DIR__ . '/../Includes/header.php';
-include_once __DIR__ . '/../Includes/colonne.php';
+include_once __DIR__ . '/Includes/header.php';
+include_once __DIR__ . '/Includes/colonne.php';
 // var_dump($_SESSION['utilisateur']);
 
 if (isset($_SESSION['connecté'])) {
@@ -34,7 +34,7 @@ if ($_SESSION['role'] == 'user') {
     }
     ?>
   </div>
-  <form action="#" id="inscription" method="post" oninput="calculateTotalPrice()">
+  <form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
 
     <div class="d-flex">
       <input type="checkbox" class="d-none" id="Actualiserleprix" />
@@ -194,5 +194,5 @@ if ($_SESSION['role'] == 'user') {
 // }
 ?>
 <?php
-include_once __DIR__ . '/../Includes/footer.php';
+include_once __DIR__ . '/Includes/footer.php';
 ?>

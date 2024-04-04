@@ -15,7 +15,7 @@ if ($_SESSION['role'] == 'user') {
 
     <div>
         <p> " Cliquez sur le
-            <a class="btn btn-warning my-3" href="dashboard/createReservation">lien</a>
+            <a class="btn btn-warning my-3" href="createReservation">lien</a>
             pour creér une réservation."
         </p>
     </div>
