@@ -26,5 +26,6 @@ class ReservationController
         $ReservationRepositories = new ReservationRepositories();
         $this->ReservationRepositories->traitementReservation($ReservationRepositories);
         $this->render("dashboard", ["erreur" => ""]);
+        
     }
 }
