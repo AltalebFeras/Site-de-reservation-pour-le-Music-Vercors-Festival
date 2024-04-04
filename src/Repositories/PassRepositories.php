@@ -75,6 +75,5 @@ class PassRepositories
           default:
               return 0; // Default price if pass type not recognized
       }
-  }
-  
+  }  
 }

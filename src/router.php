@@ -16,8 +16,10 @@ $ReservationController = new ReservationController;
 $PassController = new PassController;
 $NuiteeController = new NuiteeController;
 $OptionsController = new OptionsController;
+
 $Reservation_passController = new Reservation_passController;
 // $FilmController = new FilmController;
+
 
 $route = $_SERVER['REDIRECT_URL'];
 $methode = $_SERVER['REQUEST_METHOD'];
