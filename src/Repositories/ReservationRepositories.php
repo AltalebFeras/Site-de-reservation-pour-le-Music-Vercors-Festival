@@ -122,22 +122,205 @@ class ReservationRepositories
     return $retour;
   }
 
-  public function getReservationById(int $id): Reservation|bool
+  public function displayUserReservations()
   {
-    $sql = "SELECT * FROM " . PREFIXE . "mvf_reservation WHERE reservationID = :id";
-
-    $statement = $this->DB->prepare($sql);
-    $statement->bindParam(':id', $id);
-    $statement->execute();
-    $retour = $statement->fetch(PDO::FETCH_CLASS, Reservation::class);
-
-    return $retour;
+      if (!isset($_SESSION['utilisateur'])) {
+          echo "User not logged in.";
+          return;
+      }
+      
+      $userID = $_SESSION['utilisateur'];
+  
+      $sql = "SELECT * FROM " . PREFIXE . "reservation WHERE utilisateurID = :userID";
+      $stmt = $this->DB->prepare($sql);
+      $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+      $stmt->execute();
+      $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  
+      if ($reservations) {
+       
+          echo "<table>
+              <tr>
+                  <th>Reservation Référence</th>
+                  <th>Nombre de Reservations</th>
+                  <th>Prix Total</th>
+                  <th>Nuitée</th>
+                  <th>Pass Journée</th>
+                  <th>Options Supplémentaire</th>
+                 
+              </tr>";
+  
+          foreach ($reservations as $reservation) {
+              $userID = $reservation['utilisateurID'];
+              $userReservations = $this->getUserReservations($userID);
+              $userOptions = $this->getUserOptions($userID);
+  
+              $reservationID = $reservation['reservationID'];
+              $userReservationNuitee = $this->getUserReservationNuitee($reservationID);
+              $userReservationPass = $this->getUserReservationPass($reservationID);
+  
+              echo "<tr>
+                  <td>{$reservation['reservationID']}</td>
+                  <td>{$reservation['nombreReservations']}</td>
+                  <td>{$reservation['prixTotal']} €</td>
+                  <td>$userReservationNuitee</td>
+                  <td>$userReservationPass</td>
+                  <td>$userOptions</td>
+              </tr>";
+          }
+  
+          echo "</table>";
+      } else {
+          echo "No reservations found for the logged-in user.";
+      }
   }
+  
+
+public function displayAllReservations()
+{
+    $sql = "SELECT * FROM " . PREFIXE . "reservation;";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->execute();
+    $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($reservations) {
+        echo "<table border='1'>
+            <tr>
+            <th>Reservation Référence</th>
+            <th>Nombre de Reservations</th>
+            <th>Prix Total</th>
+            <th>Nuitée</th>
+            <th>Pass Journée</th>
+            <th>Options Supplémentaire</th>
+            </tr>";
+
+        foreach ($reservations as $reservation) {
+            $userID = $reservation['utilisateurID'];
+            $userReservations = $this->getUserReservations($userID);
+            $userOptions = $this->getUserOptions($userID);
+
+        
+            $userNights = $this->getUserNights($userID);
+
+            $reservationID = $reservation['reservationID'];
+            $userReservationNuitee = $this->getUserReservationNuitee($reservationID);
+            $userReservationPass = $this->getUserReservationPass($reservationID);
+
+            echo "<tr>
+            <td>{$reservation['reservationID']}</td>
+            <td>{$reservation['nombreReservations']}</td>
+            <td>{$reservation['prixTotal']}</td>
+            <td>$userReservationNuitee</td>
+            <td>$userReservationPass</td>
+            <td>$userOptions</td>
+
+            </tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "No reservations found.";
+    }
+}
+
+public function getUserReservationNuitee($reservationID)
+{
+    $nights = "";
+    $sql = "SELECT nomNuitee FROM " . PREFIXE . "nuitee WHERE nuiteeID IN (SELECT nuiteeID FROM " . PREFIXE . "reservation_nuitee WHERE reservationID = :reservationID);";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':reservationID', $reservationID, PDO::PARAM_INT);
+    $stmt->execute();
+    $nightsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($nightsData) {
+        foreach ($nightsData as $night) {
+            $nights .= $night['nomNuitee'] . "<br>";
+        }
+    }
+
+    return $nights;
+}
+
+public function getUserReservationPass($reservationID)
+{
+    $passes = "";
+    $sql = "SELECT nomPass FROM " . PREFIXE . "pass WHERE passID IN (SELECT passID FROM " . PREFIXE . "reservation_pass WHERE reservationID = :reservationID);";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':reservationID', $reservationID, PDO::PARAM_INT);
+    $stmt->execute();
+    $passesData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($passesData) {
+        foreach ($passesData as $pass) {
+            $passes .= $pass['nomPass'] . "<br>";
+        }
+    }
+
+    return $passes;
+}
+
+
+public function getUserOptions($reservationID)
+{
+    $options = "";
+    $sql = "SELECT mvf_options.nomOption FROM mvf_options INNER JOIN mvf_reservation_option ON mvf_options.optionID = mvf_reservation_option.optionID WHERE mvf_reservation_option.reservationID = :reservationID;";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':reservationID', $reservationID, PDO::PARAM_INT);
+    $stmt->execute();
+    $optionsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($optionsData) {
+        foreach ($optionsData as $option) {
+            $options .= $option['nomOption'] . "<br>";
+        }
+    }
+
+    return $options;
+}
+
+
+
+public function getUserNights($userID)
+{
+    $nights = "";
+    $sql = "SELECT nomNuitee FROM " . PREFIXE . "nuitee WHERE nuiteeID IN (SELECT nuiteeID FROM " . PREFIXE . "reservation_nuitee WHERE reservationID IN (SELECT reservationID FROM " . PREFIXE . "reservation WHERE utilisateurID = :userID));";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    $nightsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($nightsData) {
+        foreach ($nightsData as $night) {
+            $nights .= $night['nomNuitee'] . "<br>";
+        }
+    }
+
+    return $nights;
+}
+
+private function getUserReservations($userID)
+{
+    $sql = "SELECT prixTotal, nombreReservations FROM mvf_reservation WHERE utilisateurID = :userID";
+    $stmt = $this->DB->prepare($sql);
+    $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+    $stmt->execute();
+    $userReservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $html = "<ul>";
+    foreach ($userReservations as $reservation) {
+        $html .= "<li>Number of Reservations: {$reservation['nombreReservations']}</li>";
+        $html .= "<li>Total Price: {$reservation['prixTotal']}</li>";
+    }
+    $html .= "</ul>";
+
+    return $html;
+}
+ 
+   
   public function calculation()
   {
     $numberOfReservations = intval($_POST["nombreReservations"]);
 
-    //   Chosen Passes
     $pass1jourPrice = 40;
     $pass2joursPrice = 70;
     $pass3joursPrice = 100;
@@ -164,7 +347,6 @@ class ReservationRepositories
       if ($_POST["choixPass"] == "pass3jours")
         $totalPassPrice += $pass3joursPrice;
     }
-    //   Optional Extras
 
     $tentPrice = 5;
     $vanPrice = 5;

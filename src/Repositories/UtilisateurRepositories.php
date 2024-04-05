@@ -33,7 +33,7 @@ class UtilisateurRepositories
         return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getPrenom($utilisateurID)
+    public function getCoordonee($utilisateurID)
     {
         $sql = "SELECT prenom FROM " . PREFIXE . "utilisateur WHERE utilisateurID = :id";
         $statement = $this->DB->prepare($sql);

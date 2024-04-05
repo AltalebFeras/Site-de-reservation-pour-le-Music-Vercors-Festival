@@ -23,26 +23,26 @@
            <label for="prenom">Votre prénom :</label>
            <input type="text" name="prenom" id="prenom
            " placeholder="<?php
-                            $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
+                            $prenom = $utilisateurRepositories->getCoordonee($utilisateurID);
                             echo $all[0]['prenom']
                             ?>
            " disabled>
            <label for="email">Votre Email :</label>
            <input type="email" name="email" id="email
            " placeholder="<?php
-                            $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
+                            $prenom = $utilisateurRepositories->getCoordonee($utilisateurID);
                             echo $all[0]['email']
                             ?>" disabled>
            <label for="telephone">Votre numéro de téléphone :</label>
            <input type="text" name="telephone" id="telephone
            " placeholder="<?php
-                            $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
+                            $prenom = $utilisateurRepositories->getCoordonee($utilisateurID);
                             echo $all[0]['telephone']
                             ?>" disabled>
            <label for="adresse">Votre adresse postale :</label>
            <input type="text" name="adresse" id="adresse
            " placeholder="<?php
-                            $prenom = $utilisateurRepositories->getPrenom($utilisateurID);
+                            $prenom = $utilisateurRepositories->getCoordonee($utilisateurID);
                             echo $all[0]['adresse']
                             ?>" disabled>
 

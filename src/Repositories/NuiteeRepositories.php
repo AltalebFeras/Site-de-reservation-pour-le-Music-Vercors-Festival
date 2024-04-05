@@ -21,24 +21,24 @@ class NuiteeRepositories
 
     public function traitementNuitee(NuiteeRepositories $NuiteeRepositories)
     {
-         $nights = [];
+        $nights = [];
         $prices = [];
 
-         for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             if (isset($_POST['tenteNuit' . $i])) {
                 $nights[] = htmlspecialchars($_POST['tenteNuit' . $i]);
                 $prices[] = $this->getPrixNuitee($_POST['tenteNuit' . $i]);
             }
         }
 
-         for ($i = 1; $i <= 3; $i++) {
+        for ($i = 1; $i <= 3; $i++) {
             if (isset($_POST['vanNuit' . $i])) {
                 $nights[] = htmlspecialchars($_POST['vanNuit' . $i]);
                 $prices[] = $this->getPrixNuitee($_POST['vanNuit' . $i]);
             }
         }
 
-         if (isset($_POST['tente3Nuits']) && isset($_POST['van3Nuits'])) {
+        if (isset($_POST['tente3Nuits']) && isset($_POST['van3Nuits'])) {
             $nights[] = htmlspecialchars($_POST['tente3Nuits']);
             $prices[] = $this->getPrixNuitee($_POST['tente3Nuits']);
 
@@ -55,8 +55,7 @@ class NuiteeRepositories
 
     public function createNuitee(Nuitee $Nuitee): Nuitee
     {
-        $sql = "INSERT INTO " . PREFIXE . "nuitee (nomNuitee, prixNuitee)
-                VALUES (:nomNuitee, :prixNuitee)";
+        $sql = "INSERT INTO " . PREFIXE . "nuitee (nomNuitee, prixNuitee) VALUES (:nomNuitee, :prixNuitee)";
         $statement = $this->DB->prepare($sql);
         $retour = $statement->execute([
             ':nomNuitee' => $Nuitee->getNomNuitee(),
@@ -65,10 +64,21 @@ class NuiteeRepositories
 
         $nuiteeID = $this->DB->lastInsertId();
         $Nuitee->setNuiteeID($nuiteeID);
-        $_SESSION['nuiteeID'] =$this->DB->lastInsertId();
-    
+        $_SESSION['nuiteeID'] = $nuiteeID;
+
+        $reservationID = $_SESSION['reservationID'];
+        $jour = $this->getJourNuitee($Nuitee->getNomNuitee()); // Pass the correct argument
+        $requestSql = "INSERT INTO " . PREFIXE . "reservation_nuitee (jour, reservationID, nuiteeID)
+                   VALUES (:jour, :reservationID, :nuiteeID)";
+        $statement = $this->DB->prepare($requestSql); // Use $requestSql instead of $sql
+        $retour = $statement->execute([
+            ':jour' => $jour,
+            ':reservationID' => $reservationID,
+            ':nuiteeID' => $nuiteeID,
+        ]);
         return $Nuitee;
     }
+
 
     private function getPrixNuitee($nightType)
     {
@@ -88,37 +98,35 @@ class NuiteeRepositories
                 return 0;
         }
     }
+    public function getJourNuitee($date)
+    {
+        switch ($date) {
+            case 'tenteNuit1':
+                return '01/07/2024';
 
-    // Other methods...
+            case 'tenteNuit2':
+                return '02/07/2024';
+
+            case 'tenteNuit3':
+                return '03/07/2024';
+
+            case 'tente3Nuits':
+                return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
+
+            case 'van3Nuits':
+                return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
+            case 'vanNuit1':
+                return '01/07/2024';
+
+            case 'vanNuit2':
+                return '02/07/2024';
+
+            case 'vanNuit3':
+                return '03/07/2024';
 
 
-
-
-
-    // public function CreateThisNuitee(Nuitee $Nuitee): Nuitee
-    // {
-    //     $sql = "INSERT INTO " . PREFIXE . "Nuitee (nuiteeID, nomNuitee, prixNuitee) VALUES 
-    //     (:nuiteeID, :nomNuitee, :prixNuitee);
-    //      INSERT INTO " . PREFIXE . "Reservation (dateDebut, dateFin, reservationID, user) VALUES
-    //       (:datedebut, :datefin, :reservationid, :user);";
-    //     $statement = $this->DB->prepare($sql);
-    //     $statement->execute([
-    //         ':nuiteeID' => $Nuitee->getNuiteeID(),
-    //         ':nomNuitee' => $Nuitee->getNomNuitee(),
-    //         ':prixNuitee' => $Nuitee->getPrixNuitee(),
-    //         // ':user'=> $Nuitee->getUser()
-    //     ]);
-    //     $id = $this->DB->lastInsertId();
-    //     $Nuitee->setNuiteeID($id);
-    //     return $Nuitee;
-    // }
-
-    // public function deleteThisNuitee($Id): bool
-    // {
-    //     $sql = "DELETE FROM " . PREFIXE . "Nuitee WHERE ID = :id; 
-    //             DELETE FROM " . PREFIXE . "Reservation WHERE reservationID = :id;";
-    //     $statement = $this->DB->prepare($sql);
-    //     $statement->bindParam(':id', $Id);
-    //     return $statement->execute();
-    // }
+            default:
+                break;
+        }
+    }
 }

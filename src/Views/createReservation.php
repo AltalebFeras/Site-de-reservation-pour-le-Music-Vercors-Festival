@@ -1,39 +1,13 @@
 <?php
 include_once __DIR__ . '/Includes/header.php';
 include_once __DIR__ . '/Includes/colonne.php';
-// var_dump($_SESSION['utilisateur']);
-
 if (isset($_SESSION['connecté'])) {
   echo '<div><a href="/" class="btn btn-info">dashoard</a>';
 }
 if ($_SESSION['role'] == 'user') {
 
-
 ?>
-  <?php
-  // if (isset($_SESSION['reservé'])) {
-  ?>
-
-  <!-- <div>
-  <p> "Merci d'avoir réservé ! Cliquez sur le
-    <a href="dashboard/reservation">lien</a>
-    pour voir les détails de votre réservation."
-  </p>
-<p><a href="">Anuller ma reservation</a></p>
-</div> -->
-  <?php
-  // } else {
-  ?>
-
-  <div id="message">
-    <?php
-
-    if (isset($_SESSION['message'])) {
-      echo '<div class="alert bg-success" role="alert">' . $_SESSION['message'] . '</div>';
-      unset($_SESSION['message']);
-    }
-    ?>
-  </div>
+ 
   <form action="" id="inscription" method="post" oninput="calculateTotalPrice()">
 
     <div class="d-flex">
@@ -188,10 +162,6 @@ if ($_SESSION['role'] == 'user') {
 
 <?php
 }
-?>
-
-<?php
-// }
 ?>
 <?php
 include_once __DIR__ . '/Includes/footer.php';
