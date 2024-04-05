@@ -10,12 +10,11 @@ if (isset($_SESSION['connecté'])) {
 };
 
 
-// Assuming $ReservationRepositories is instantiated somewhere
 $ReservationRepositories = new ReservationRepositories();
 
 
 $ReservationRepositories->displayUserReservations();
 
 
-// <?php
+ 
 include_once __DIR__ . '/../Includes/footer.php';

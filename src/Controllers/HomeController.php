@@ -61,7 +61,6 @@ class HomeController
   }
 
 
-  // will change the password for user to motDePasse
   public function authUser(string $motDePasseAdmin): void
   {
     if ($motDePasseAdmin === 'admin') {

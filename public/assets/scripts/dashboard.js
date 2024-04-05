@@ -169,11 +169,7 @@ function afficherMasquerTarifsReduits() {
     pass1jourCheckbox.checked = false;
     pass2joursCheckbox.checked = false;
     pass3joursCheckbox.checked = false;
-    // choixJour1.checked = false;
-    // choixJour2.checked = false;
-    // choixJour3.checked = false;
-    // choixJour12.checked = false;
-    // choixJour23.checked = false;
+ 
 
     tarifsReduitsSection.style.display = "block";
     tarifsNormauxSection.style.display = "none";
@@ -181,11 +177,7 @@ function afficherMasquerTarifsReduits() {
     pass1jourReduitCheckbox.checked = false;
     pass2joursReduitCheckbox.checked = false;
     pass3joursReduitCheckbox.checked = false;
-    // choixJour1reduit.checked = false;
-    // choixJour2reduit.checked = false;
-    // choixJour3reduit.checked = false;
-    // choixJour12reduit.checked = false;
-    // choixJour23reduit.checked = false;
+   
 
     tarifsReduitsSection.style.display = "none";
     tarifsNormauxSection.style.display = "block";

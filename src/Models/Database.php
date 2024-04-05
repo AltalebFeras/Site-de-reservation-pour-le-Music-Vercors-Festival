@@ -40,8 +40,7 @@ final class Database
                 while ($migrationExistante === TRUE) {
                     $migration = __DIR__ . "/../Migrations/migration$i.sql";
 
-                    // a verifier le fonctionnement de la fonction file_exists
-                    // $migration = __DIR__ . "/../src/Migration/migration.sql" . $i;
+                     
                     if (file_exists($migration)) {
                         $sql = file_get_contents($migration);
                         $this->DB->query($sql);
@@ -51,7 +50,6 @@ final class Database
                     }
                 }
 
-                // Mettre à jour le fichier config.php
                 if ($this->UpdateConfig()) {
                     return "installation de la Base de Données terminée !";
                 }
@@ -60,13 +58,11 @@ final class Database
             }
         }
 
-        // Ajout d'un retour par défaut
         return "Une erreur inattendue s'est produite lors de l'initialisation de la base de données.";
     }
 
   
 
-    //  i have to edit the function by the table on my Database
 
     private function testIfTableUtilisteursExists(): bool
     {
@@ -93,8 +89,7 @@ final class Database
       define('DB_PWD', '" . DB_PWD . "');
       define('PREFIXE', '" . PREFIXE . "');
       
-      // Si votre nom de domaine ne pointe pas vers le dossier public, indiquer le chemin entre le nom de domaine et le dossier public.
-      // exemple: /mon-site/public/
+     
       define('HOME_URL', '" . HOME_URL . "');
       
       

@@ -22,7 +22,6 @@ class OptionsRepositories
     {
         $options = [];
     
-        // Check if 'enfants' is set to "Oui" and handle children's helmets
         if (isset($_POST['enfants']) && $_POST['enfants'] === "Oui" && isset($_POST['nombreCasquesEnfants']) && $_POST['nombreCasquesEnfants']>0) {
             $nomOption = "Casque Enfant";
             $stockOption = (int)$_POST['nombreCasquesEnfants'];
@@ -30,7 +29,6 @@ class OptionsRepositories
             $options[] = new Options(['nomOption' => $nomOption, 'stockOption' => $stockOption, 'prixOption' => $prixOption]);
         }
     
-        // Check if 'NombreLugesEte' is set and handle summer sledges
         if (isset($_POST['NombreLugesEte']) && $_POST['NombreLugesEte'] > 0 ) {
             $nomOption = "Luge";
             $stockOption = (int)$_POST['NombreLugesEte'];
@@ -38,7 +36,6 @@ class OptionsRepositories
             $options[] = new Options(['nomOption' => $nomOption, 'stockOption' => $stockOption, 'prixOption' => $prixOption]);
         }
     
-        // Loop through options and store them in the database
         foreach ($options as $option) {
             $OptionsRepositories->createOptions($option);
         }

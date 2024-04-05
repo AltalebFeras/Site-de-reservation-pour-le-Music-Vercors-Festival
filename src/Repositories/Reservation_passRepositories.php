@@ -64,7 +64,7 @@ class Reservation_passRepositories
                 return '01/07/2024' . '/' . '02/07/2024' . '/' . '03/07/2024';
 
             default:
-                return ''; // Default price if pass type not recognized
+                return ''; 
         }
     }
 
