@@ -14,7 +14,7 @@ if (isset($_SESSION['connecté'])) {
 $ReservationRepositories = new ReservationRepositories();
 
 
-$ReservationRepositories->displayAllReservations();
+$ReservationRepositories->displayUserReservations();
 
 
 // <?php
