@@ -37,7 +37,7 @@ class ReservationRepositories
 
     $reservation = new Reservation($data);
     $ReservationRepositories->createReservation($reservation);
-    $_SESSION['reservé'] = true;
+    $_SESSION['reserved'] =true;
     $_SESSION['message'] = "Votre réservation est validée!";
     
 
@@ -62,7 +62,6 @@ class ReservationRepositories
     $reservationID = $this->DB->lastInsertId();
     $Reservation->setReservationID($reservationID);
     $_SESSION['reservationID'] =$this->DB->lastInsertId();
-
     return $Reservation;
   }
   public function insertID(Reservation $Reservation): Reservation
@@ -171,8 +170,17 @@ class ReservationRepositories
   
           echo "</table>";
       } else {
-          echo "No reservations found for the logged-in user.";
-      }
+        ?>
+        <div>
+          <p class="fs-1">Vous n'avez pas de réservation!</p>
+            <p class=" fs-3" > Cliquez sur le
+                <a href="/">👉ICI👈</a>
+                pour créer une réservation.
+            </p>
+        </div>
+        <?php
+    }
+    
   }
   
 

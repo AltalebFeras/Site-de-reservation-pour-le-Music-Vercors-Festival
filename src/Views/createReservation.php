@@ -17,7 +17,7 @@ if ($_SESSION['role'] == 'user') {
     </div>
 
 
-    <fieldset class="<?php echo isset($_SESSION['error_message0']) ? 'style="display: none;"' : ''; ?>" id="reservation">
+    <fieldset  id="reservation">
 
       <legend>Réservation</legend>
       <h3>Nombre de réservation(s) :</h3>

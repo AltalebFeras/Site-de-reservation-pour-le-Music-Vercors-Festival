@@ -13,26 +13,25 @@ if ($_SESSION['role'] == 'user') {
 
 <div id="message">
     <?php
-
-    if (isset($_SESSION['message'])) {
-      echo '<div class="alert bg-success" role="alert">' . $_SESSION['message'] . '</div>';
-      unset($_SESSION['message']);
+    if (isset( $_SESSION['message']) 
+    ) {
+        echo '<div class="alert bg-success" role="alert">' . $_SESSION['message'] . '</div>';
+        echo '<div>
+                <p>Merci pour votre réservation ! Cliquez sur le <a href="dashboard/reservation">lien</a> pour voir tous les détails de votre réservation.</p>
+            </div>';
+        unset($_SESSION['message']);
     }
     ?>
-  </div>
-   
-<div>
-  <p> "Merci d'avoir réservé ! Cliquez sur le
-    <a href="dashboard/reservation">lien</a>
-    pour voir les détails de votre réservation."
-  </p>
 </div>
 
+   
+
+
 
 <div>
-        <p> " Cliquez sur le
-            <a class="btn btn-warning my-3" href="createReservation">lien</a>
-            pour creér une réservation."
+        <p class="fs-3 my-4">  Cliquez sur le
+            <a  href="createReservation">👉ICI👈</a>
+            pour creér une réservation.
         </p>
     </div>
 <?php } ?>
